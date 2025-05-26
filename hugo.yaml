@@ -1,5 +1,5 @@
-baseURL: https://example.org/
-languageCode: en-us
+baseURL: https://danielhacks.it/
+languageCode: en
 title: Daniel Hacks It
 
 module:
@@ -9,3 +9,33 @@ module:
 caches:
   images:
     dir: :cacheDir/images
+
+menu:
+  main:
+    - name: Blog
+      pageRef: /blog
+      weight: 2
+    - name: About
+      pageRef: /about
+      weight: 3
+    - name: Search
+      weight: 4
+      params:
+        type: search
+    - name: GitHub
+      weight: 5
+      url: "https://github.com/daniel-blackbeard/"
+      params:
+        icon: github
+
+params:
+  navbar:
+    displayTitle: true
+    displayLogo: true
+    logo:
+      path: images/icon.png
+      dark: images/icon.png
+      link: /
+      width: 40
+      height: 40
+
