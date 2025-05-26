@@ -1,33 +1,20 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Daniel Hacks It – Blog</title>
+    <title>Blog on Daniel Hacks It</title>
     <link>https://danielhacks.it/blog/</link>
     <description>Recent content in Blog on Daniel Hacks It</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
     <lastBuildDate>Sun, 25 May 2025 00:00:00 +0000</lastBuildDate>
-    
-	  <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-      
-        
-      
-    
-    
+    <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blog introduction</title>
       <link>https://danielhacks.it/blog/20250525_introduction/</link>
       <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
-      
       <guid>https://danielhacks.it/blog/20250525_introduction/</guid>
-      <description>
-        
-        
-        &lt;p&gt;Placeholder for the future content as well here&lt;/p&gt;
-
-      </description>
+      <description>&lt;p&gt;Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find usefull as well.&lt;/p&gt;
+&lt;p&gt;In this blog I have the plan to showcase my personal projects on electronics and perhaps other fields, maybe adding some of the knowledge I have accumulated in the last years in the field (if it doesn&amp;rsquo;t break any NDA, of course).&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

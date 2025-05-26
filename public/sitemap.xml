@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://danielhacks.it/about/</loc>
+    <lastmod>2025-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/resources/</loc>
+    <lastmod>2025-05-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/</loc>
+    <lastmod>2025-05-25T21:14:47+02:00</lastmod>
+  </url><url>
     <loc>https://danielhacks.it/blog/</loc>
     <lastmod>2025-05-25T00:00:00+00:00</lastmod>
   </url><url>
@@ -17,8 +26,8 @@
     <loc>https://danielhacks.it/tags/</loc>
     <lastmod>2025-05-25T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://danielhacks.it/about/</loc>
-  </url><url>
     <loc>https://danielhacks.it/categories/</loc>
+  </url><url>
+    <loc>https://danielhacks.it/search/</loc>
   </url>
 </urlset>

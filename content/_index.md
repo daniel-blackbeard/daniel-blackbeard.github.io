@@ -1,7 +1,8 @@
 ---
 date: '2025-05-25T21:14:47+02:00'
-draft: true
 title: 'Daniel Hacks It'
+cascade:
+  type: docs
 ---
 
-Placeholder for the incoming content
+![Daniel's Shack](/images/morning_wood.jpeg)
