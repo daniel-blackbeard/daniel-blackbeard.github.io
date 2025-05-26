@@ -3,6 +3,9 @@ title: About
 ---
 
 ## Who am I?
+
+![Personal short](/images/itsmedaniel.jpg "Valeggio, 2023")
+
 I'm Daniel, a microelectronics engineer working on cutting edge optical links, but with a general passion for electronics since I was 13 years old. Based in Italy, from the best analog microelectronics school around (and they know it).
 
 ## What is this blog about
