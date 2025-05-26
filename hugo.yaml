@@ -28,6 +28,21 @@ menu:
       params:
         icon: github
 
+  sidebar:
+  # - identifier: more
+  #   name: More
+  #   params:
+  #     type: separator
+  #   weight: 1
+  - identifier: blog
+    name: "Blog"
+    pageRef: "/blog"
+    weight: 2
+  - identifier: about
+    name: "About"
+    pageRef: "/about"
+    weight: 3
+
 params:
   navbar:
     displayTitle: true
@@ -36,6 +51,38 @@ params:
       path: images/icon.png
       dark: images/icon.png
       link: /
-      width: 40
-      height: 40
+      width: 50
+      height: 50
 
+  footer:
+    enable: true
+    displayCopyright: true
+    displayPoweredBy: false
+    width: normal
+
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
+
+  blog:
+    list:
+      displayTags: true
+      # date | lastmod | publishDate | title | weight
+      sortBy: date
+      sortOrder: desc # or "asc"
+    
+    article:
+      displayPagination: true
+
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+    extensions:
+      passthrough:
+        delimiters:
+          block: [['\[', '\]'], ['$$', '$$']]
+          inline: [['\(', '\)']]
+        enable: true
