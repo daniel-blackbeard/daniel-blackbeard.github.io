@@ -18,4 +18,5 @@ In this blog I have the plan to showcase my personal projects on electronics and
 With this being said, have a good reading.
 
 With regards
+
 Daniel
