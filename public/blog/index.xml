@@ -6,8 +6,17 @@
     <description>Recent content in Blog on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 25 May 2025 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 27 May 2025 16:43:31 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>What Is HDL? The explanation you did not requested</title>
+      <link>https://danielhacks.it/blog/20250527_what-is-hdl/</link>
+      <pubDate>Tue, 27 May 2025 16:43:31 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20250527_what-is-hdl/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;If you are a hardware engineer you need no explanation though, this is more for the programing guys who attempt to make things with an FPGA in the belief that is the next step of Arduino (I do think that though, so no judgement made here)&lt;/p&gt;
+&lt;p&gt;As someone who wrote a lot of code in my young age (still loving fidling with Linux kernel), I&amp;rsquo;m lucky I got the purpose of HDL.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Blog introduction</title>
       <link>https://danielhacks.it/blog/20250525_introduction/</link>

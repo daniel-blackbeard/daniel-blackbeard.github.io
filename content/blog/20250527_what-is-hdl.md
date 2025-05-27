@@ -1,7 +1,6 @@
 ---
 author: "Daniel Blackbeard"
 date: '2025-05-27T16:43:31+02:00'
-draft: true
 title: 'What Is HDL? The explanation you did not requested'
 cover:
   image: "images/hdl.png"
