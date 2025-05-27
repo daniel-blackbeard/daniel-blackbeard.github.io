@@ -62,23 +62,19 @@ params:
   showtoc: true
   tocopen: true
 
-  # assets:
-    # disableHLJS: true # to disable highlight.js
+  assets:
+    disableHLJS: true # to disable highlight.js
     # disableFingerprinting: true
     # favicon: "<link / abs url>"
     # favicon16x16: "<link / abs url>"
     # favicon32x32: "<link / abs url>"
     # apple_touch_icon: "<link / abs url>"
     # safari_pinned_tab: "<link / abs url>"
+
   label:
     text: "Daniel Hacks It"
     icon: images/icon.png
     iconHeight: 35
-
-  homeInfoParams:
-    enabled: false
-    Title: Hi there {wave}
-    Content: Can be Info, links, about...
 
   profileMode:
     enabled: true
@@ -101,6 +97,8 @@ params:
       url: "https://www.instagram.com/daniel.blackbeard"
     - name: github
       url: "https://github.com/daniel-blackbeard"
+    - name: RSS
+      url: "/blog/index.xml"
 
   fuseOpts:
     isCaseSensitive: false
@@ -116,6 +114,9 @@ params:
 
 
 markup:
+  goldmark:
+    renderer:
+      unsafe: true
   highlight:
     noClasses: false
   # anchorLineNos: true
