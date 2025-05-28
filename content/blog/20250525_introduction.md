@@ -11,7 +11,7 @@ tags:
 - log
 ---
 
-Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find usefull as well.
+Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find useful as well.
 
 In this blog I have the plan to showcase my personal projects on electronics and perhaps other fields, maybe adding some of the knowledge I have accumulated in the last years in the field (if it doesn't break any NDA, of course).
 

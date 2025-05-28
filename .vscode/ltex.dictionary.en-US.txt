@@ -1,0 +1,5 @@
+stackoverflow
+reddit
+netlist
+SystemVerilog
+flipflops

@@ -14,8 +14,8 @@
       <pubDate>Tue, 27 May 2025 16:43:31 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250527_what-is-hdl/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;If you are a hardware engineer you need no explanation though, this is more for the programing guys who attempt to make things with an FPGA in the belief that is the next step of Arduino (I do think that though, so no judgement made here)&lt;/p&gt;
-&lt;p&gt;As someone who wrote a lot of code in my young age (still loving fidling with Linux kernel), I&amp;rsquo;m lucky I got the purpose of HDL.&lt;/p&gt;</description>
+&lt;p&gt;If you are a hardware engineer you need no explanation though, this is more for the programming guys who attempt to make things with an FPGA in the belief that is the next step of Arduino (I do think that though, so no judgment made here)&lt;/p&gt;
+&lt;p&gt;As someone who wrote a lot of code in my young age (still loving fiddling with Linux kernel), I&amp;rsquo;m lucky I got the purpose of HDL.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
@@ -23,7 +23,13 @@
       <pubDate>Mon, 26 May 2025 00:00:00 +0000</pubDate>
       <guid>https://danielhacks.it/about/</guid>
       <description>&lt;h2 id=&#34;who-am-i&#34;&gt;Who am I?&lt;/h2&gt;
-&lt;p&gt;&lt;img alt=&#34;Personal short&#34; loading=&#34;lazy&#34; src=&#34;https://danielhacks.it/images/itsmedaniel.jpg&#34; title=&#34;Valeggio, 2023&#34;&gt;&lt;/p&gt;
+&lt;figure class=&#34;align-center &#34;&gt;
+    &lt;img loading=&#34;lazy&#34; src=&#34;https://danielhacks.it/images/itsmedaniel.jpg#center&#34;
+         alt=&#34;Personal shot&#34;/&gt; &lt;figcaption&gt;
+            &lt;p&gt;Valeggio, 2023&lt;/p&gt;
+        &lt;/figcaption&gt;
+&lt;/figure&gt;
+
 &lt;p&gt;I&amp;rsquo;m Daniel, a microelectronics engineer working on cutting edge optical links, but with a general passion for electronics since I was 13 years old. Based in Italy, from the best analog microelectronics school around (and they know it).&lt;/p&gt;
 &lt;h2 id=&#34;what-is-this-blog-about&#34;&gt;What is this blog about&lt;/h2&gt;
 &lt;p&gt;In principle, I wanted to make a web log for my learning activity on digital design and FPGA. But well in the deep, I&amp;rsquo;m an analog circuit designer, and even deeper, a physicist. So I guess at some point the arguments will diverge onto many of my interests. But what blog writer doesn&amp;rsquo;t do that?&lt;/p&gt;</description>
@@ -43,7 +49,7 @@
       <link>https://danielhacks.it/blog/20250525_introduction/</link>
       <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
       <guid>https://danielhacks.it/blog/20250525_introduction/</guid>
-      <description>&lt;p&gt;Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find usefull as well.&lt;/p&gt;
+      <description>&lt;p&gt;Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find useful as well.&lt;/p&gt;
 &lt;p&gt;In this blog I have the plan to showcase my personal projects on electronics and perhaps other fields, maybe adding some of the knowledge I have accumulated in the last years in the field (if it doesn&amp;rsquo;t break any NDA, of course).&lt;/p&gt;</description>
     </item>
   </channel>
