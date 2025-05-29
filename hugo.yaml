@@ -99,6 +99,8 @@ params:
       url: "https://github.com/daniel-blackbeard"
     - name: RSS
       url: "/blog/index.xml"
+    - name: buymeacoffee
+      url: https://buymeacoffee.com/daniel.blackbeard
 
   fuseOpts:
     isCaseSensitive: false
@@ -110,7 +112,7 @@ params:
     # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
     keys: ["title", "permalink", "summary", "content"]
 
-  ShareButtons: ["linkedin", "twitter", "telegram"]
+  ShareButtons: ["linkedin", "twitter", "telegram", "buymeacoffee"]
 
 
 markup:

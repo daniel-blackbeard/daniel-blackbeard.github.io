@@ -49,7 +49,7 @@ If you don't know what latches or flipflops are, here is a brief explanation:
 As a general rule, in digital design you avoid latches as are very technology dependent on their implementation (they can be very power hungry sometimes). From now on let's set the rule that we will try to synthesize only flip-flops.
 
 ## They said HDL has intrinsic parallelism
-HLD are as much parallel as two logic gates working at the same time. You describe the logical circuits and nothing stops it from making two operations at the very same time (disregarding propagation delay in logic gates)
+HLD is as much parallel as two logic gates working at the same time. You describe the logical circuits and nothing stops it from making two operations at the very same time (disregarding propagation delay in logic gates). In this way, the parallelism is really explicit.
 
 ## So can I do a `for` loop?
 *Hardware Definition Language!*
@@ -63,4 +63,18 @@ However, for all the effects, HDL is capable of parsing a for loop, as it will i
 Again, team Haskell wins here against team Java (lol). Recursion basically is a way of making pipelines in digital design.
 
 ## So, am I ready to write HDL after reading this?
-Let's be honest: you were always ready to make digital circuits, just that your mindset was obfuscated by the prejudice that HDL are programming languages. Now that you know they aren't, and you know that they basically describe the connections and/or behavior of logical circuits, the doors are open for you.
+Let's be honest: you were always ready to make digital circuits, just that your mindset was obfuscated by the prejudice that HDL are programming languages. Now that you know they aren't, and you know that they basically describe the connections and/or behavior of logical circuits, the doors are open for you. But for the sake of making a framework that will allow you to make good designs, let's put this set of rules:
+
+1. When use the `always @(posedge clk)` or `always @(negedge clk)` to create flip-flops, strive for always and unconditionally use real clock signals. Avoid as much as possible using other signals
+2. Never synthezise latches. The synthesis tool usually reports when this happens, but a basic rule is to never put a `reg` variable under an `always` statement that doesn't contain either `posedge` or `negedge`
+3. Avoid `for` or `while` loops as much as you can, the better you are, the less you need them.
+4. Abuse `case(variable)` whenever you can 
+5. Avoid loops. In HDL everything happens at the same time, so something like this
+```systemverilog
+always @(a, b, c)
+  a = b;
+  b = c;
+  c = a;
+end
+```
+will fail miserably as you just created a ring of buffers
