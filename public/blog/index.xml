@@ -6,8 +6,19 @@
     <description>Recent content in Blog on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 27 May 2025 16:43:31 +0200</lastBuildDate>
+    <lastBuildDate>Wed, 28 May 2025 17:12:23 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UART: the basics after you know the very basics</title>
+      <link>https://danielhacks.it/blog/20250529_uart_for_practice/</link>
+      <pubDate>Wed, 28 May 2025 17:12:23 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20250529_uart_for_practice/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;So, after you are done with the book and implemented your first 8-bit CPU you keep wondering&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ok, but now I want to do real world stuff&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Here I got you back, nothing comes before when it comes to real world stuff that having the capability of sending data to/from other devices. When I began my personal projects, when I got my Arty A7, I thought that I needed to be able to debug what&amp;rsquo;s happening inside the FPGA when the internal logic analyzer might not be too reliable (pro-tip: it&amp;rsquo;s very reliable). So being able to send to a computer data using a simple protocol is a must.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>What Is HDL? The explanation you did not requested</title>
       <link>https://danielhacks.it/blog/20250527_what-is-hdl/</link>

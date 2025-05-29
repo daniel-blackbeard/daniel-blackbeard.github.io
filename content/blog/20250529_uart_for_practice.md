@@ -1,6 +1,5 @@
 ---
 date: '2025-05-28T17:12:23+02:00'
-draft: true
 title: 'UART: the basics after you know the very basics'
 author: "Daniel Blackbeard"
 cover:
