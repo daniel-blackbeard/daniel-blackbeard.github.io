@@ -4,3 +4,5 @@ netlist
 SystemVerilog
 flipflops
 baudrate
+systemVerilog
+verilog

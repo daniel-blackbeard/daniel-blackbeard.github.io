@@ -3,25 +3,31 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://danielhacks.it/blog/</loc>
-    <lastmod>2025-05-28T17:12:23+02:00</lastmod>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
   </url><url>
-    <loc>https://danielhacks.it/tags/fpga/</loc>
-    <lastmod>2025-05-28T17:12:23+02:00</lastmod>
+    <loc>https://danielhacks.it/blog/20250608_digital_audio_with_i2s/</loc>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/hdl/</loc>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/i2c/</loc>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/log/</loc>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/</loc>
+    <lastmod>2025-06-08T14:12:26+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/fpga/</loc>
     <lastmod>2025-05-28T17:12:23+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/systemverilog/</loc>
     <lastmod>2025-05-28T17:12:23+02:00</lastmod>
   </url><url>
-    <loc>https://danielhacks.it/tags/</loc>
-    <lastmod>2025-05-28T17:12:23+02:00</lastmod>
-  </url><url>
     <loc>https://danielhacks.it/blog/20250529_uart_for_practice/</loc>
     <lastmod>2025-05-28T17:12:23+02:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/log/</loc>
-    <lastmod>2025-05-27T16:43:31+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/blog/20250527_what-is-hdl/</loc>
     <lastmod>2025-05-27T16:43:31+02:00</lastmod>

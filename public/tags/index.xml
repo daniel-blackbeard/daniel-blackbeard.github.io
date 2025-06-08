@@ -6,8 +6,29 @@
     <description>Recent content in Tags on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 28 May 2025 17:12:23 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 08 Jun 2025 14:12:26 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hdl</title>
+      <link>https://danielhacks.it/tags/hdl/</link>
+      <pubDate>Sun, 08 Jun 2025 14:12:26 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/hdl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>I2c</title>
+      <link>https://danielhacks.it/tags/i2c/</link>
+      <pubDate>Sun, 08 Jun 2025 14:12:26 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/i2c/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Log</title>
+      <link>https://danielhacks.it/tags/log/</link>
+      <pubDate>Sun, 08 Jun 2025 14:12:26 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/log/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Fpga</title>
       <link>https://danielhacks.it/tags/fpga/</link>
@@ -16,24 +37,10 @@
       <description></description>
     </item>
     <item>
-      <title>Hdl</title>
-      <link>https://danielhacks.it/tags/hdl/</link>
-      <pubDate>Wed, 28 May 2025 17:12:23 +0200</pubDate>
-      <guid>https://danielhacks.it/tags/hdl/</guid>
-      <description></description>
-    </item>
-    <item>
       <title>Systemverilog</title>
       <link>https://danielhacks.it/tags/systemverilog/</link>
       <pubDate>Wed, 28 May 2025 17:12:23 +0200</pubDate>
       <guid>https://danielhacks.it/tags/systemverilog/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Log</title>
-      <link>https://danielhacks.it/tags/log/</link>
-      <pubDate>Tue, 27 May 2025 16:43:31 +0200</pubDate>
-      <guid>https://danielhacks.it/tags/log/</guid>
       <description></description>
     </item>
     <item>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>I2c on Daniel Hacks It</title>
+    <link>https://danielhacks.it/tags/i2c/</link>
+    <description>Recent content in I2c on Daniel Hacks It</description>
+    <generator>Hugo -- 0.147.5</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 08 Jun 2025 14:12:26 +0200</lastBuildDate>
+    <atom:link href="https://danielhacks.it/tags/i2c/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Digital audio with I2S</title>
+      <link>https://danielhacks.it/blog/20250608_digital_audio_with_i2s/</link>
+      <pubDate>Sun, 08 Jun 2025 14:12:26 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20250608_digital_audio_with_i2s/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;As you perhaps know, I&amp;rsquo;m working on this blog also as a way to log my learning journey. So, to support the lack of interesting peripherals on the Arty A7, I bought a set of modules for Arduino. Most of them quite uninteresting, but I got this I2S DAC module from &lt;a href=&#34;https://www.adafruit.com/product/3678&#34;&gt;Adafruit&lt;/a&gt; that implements the UDA1334A from NXP (&lt;a href=&#34;https://www.nxp.com/docs/en/data-sheet/UDA1334ATS.pdf&#34;&gt;datasheet&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;This device interest me the most among the ones I got from the assortment, because since I was a kid I wanted to make my own guitar effects (in fact, I believe many electronic engineers are born this way or similar), so the end goal is quite ambitious as you can see. But let&amp;rsquo;s start from something easy.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
