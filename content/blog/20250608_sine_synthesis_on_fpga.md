@@ -101,7 +101,7 @@ In here, I encoded the values of the sine function from zero to pi/2. This is be
 
 The resolution of this function is 8bit and there are 64 values. This means that using the symmetries, we add a sign, making a 9bit value for a total of 256 samples per period. If we use as sampling rate the same we used in the former blog about I2S, so 48KHz, that means that a full period will be of 48KHz/256 or 187.5Hz. This basically defines the frequency resolution, and as such, I don't like this number. So I will boost artificially the number of samples in the LUT by using linear interpolation. This interpolation at the same time will boost by additional bits the resolution of the signal with some penalty on the Signal to Noise plus Distortion Ratio ([SNDR](https://en.wikipedia.org/wiki/SNDR)) with respect to use a bigger and more accurate LUT, but with huge savings in power, area and complexity.
 
-###Synthesizer
+## Synthesizer
 We use this sine ROM with a circuit that fetch the values by encoding the phase into a memory address and transforms it into a complete waveform. So let's put some framework to begin with:
 
 ```systemverilog
