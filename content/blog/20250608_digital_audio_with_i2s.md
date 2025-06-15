@@ -35,7 +35,9 @@ So, basically the stream will look something like this:
 With this said, let's take a look at a simple implementation in systemVerilog for this circuit.
 
 ## Implementation
-From a module perspective, I want to make it very easy with few requirements for the modules that will use this one. Hence, we will need a clock, the input data to be sent, the tree outputs to the I2S receiver and a `invert` flag in case I wanted to exchange the left and right audio channels. I will send 24bit data at 48KHz because it's easy. This way, I can start from 60MHz clock I will generate by using a PLL in the Artix 7 FPGA and use a strobe to generate all the other signals. A counter from zero to the division ratio will act as state for the system. 
+From a module perspective, I want to make it very easy with few requirements for the modules that will use this one. Hence, we will need a clock, the input data to be sent, the tree outputs to the I2S receiver and a `invert` flag in case I wanted to exchange the left and right audio channels. The user of this module will be in charge of sending the data at the right moment with the wide timing margin that the WS offers.
+
+I will send 24bit data at 48KHz because it's easy. This way, I can start from 60MHz clock I will generate by using a PLL in the Artix 7 FPGA and use a strobe to generate all the other signals. A counter from zero to the division ratio will act as state for the system. 
 
 The divisor has to be such that takes 60MHz to 48KHz audio as suggested before, but the streamed data is serial, so the BCK will have a clock frequency of `24bit x 2(LR channel) x 48KHz = 2.304MHz`. Now, it just happens that is hard to make perfect ratios for the many clocks I plan to use, so I will settle with a divide ratio of 26, accepting a non-audible sampling rate at the UDA1334A of 0.16% higher frequency. Not a bad deal.
 

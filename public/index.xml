@@ -6,8 +6,24 @@
     <description>Recent content on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Jun 2025 14:12:26 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 15 Jun 2025 15:00:43 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sine Synthesis with FPGA</title>
+      <link>https://danielhacks.it/blog/20250608_sine_synthesis_on_fpga/</link>
+      <pubDate>Sun, 15 Jun 2025 15:00:43 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20250608_sine_synthesis_on_fpga/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Last time we did together a circuit using verilog to communicate to a I2S device. But we never delved into how to make a waveform for it.&lt;/p&gt;
+&lt;p&gt;Now, don&amp;rsquo;t get me wrong: if you did the blinky led example while starting your first projects, this can be easily achievable for you:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A square pattern is just zeros and ones&lt;/li&gt;
+&lt;li&gt;A saw pattern is a counter from zero to max&lt;/li&gt;
+&lt;li&gt;A triangle wave is a counter that goes back after hitting max or min values&lt;/li&gt;
+&lt;li&gt;A sine wave is just some &lt;a href=&#34;https://en.wikipedia.org/wiki/CORDIC&#34;&gt;CORDIC&lt;/a&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now, we will not be using CORDIC and will not be doing simple counters. I want to show you a couple of tricks to generate a clean sine waveform that you can later compose to create more fancy sounds.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Digital audio with I2S</title>
       <link>https://danielhacks.it/blog/20250608_digital_audio_with_i2s/</link>
