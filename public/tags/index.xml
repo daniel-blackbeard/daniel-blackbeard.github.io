@@ -6,13 +6,34 @@
     <description>Recent content in Tags on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 Jun 2025 15:00:43 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 27 Dec 2025 17:00:43 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Analog</title>
+      <link>https://danielhacks.it/tags/analog/</link>
+      <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/analog/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Hdl</title>
       <link>https://danielhacks.it/tags/hdl/</link>
-      <pubDate>Sun, 15 Jun 2025 15:00:43 +0200</pubDate>
+      <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
       <guid>https://danielhacks.it/tags/hdl/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Log</title>
+      <link>https://danielhacks.it/tags/log/</link>
+      <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/log/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Xadc</title>
+      <link>https://danielhacks.it/tags/xadc/</link>
+      <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
+      <guid>https://danielhacks.it/tags/xadc/</guid>
       <description></description>
     </item>
     <item>
@@ -20,13 +41,6 @@
       <link>https://danielhacks.it/tags/i2c/</link>
       <pubDate>Sun, 15 Jun 2025 15:00:43 +0200</pubDate>
       <guid>https://danielhacks.it/tags/i2c/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Log</title>
-      <link>https://danielhacks.it/tags/log/</link>
-      <pubDate>Sun, 15 Jun 2025 15:00:43 +0200</pubDate>
-      <guid>https://danielhacks.it/tags/log/</guid>
       <description></description>
     </item>
     <item>

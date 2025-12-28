@@ -6,8 +6,16 @@
     <description>Recent content in Blog on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 Jun 2025 15:00:43 +0200</lastBuildDate>
+    <lastBuildDate>Sat, 27 Dec 2025 17:00:43 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arty A7 Guitar Effect Chain - Introduction</title>
+      <link>https://danielhacks.it/blog/20251227_guitar_effect_chain_intro/</link>
+      <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20251227_guitar_effect_chain_intro/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;It took me a while to come with worthy content, but here I am. I have been working on getting my FPGA board to sample analog audio with the internal ADC for a project proposed by a colleague as a way to learn the intricacies of digital design. Let me tell you straight: &lt;a href=&#34;https://docs.amd.com/r/en-US/ug480_7Series_XADC&#34;&gt;documentation about the ADC of this Artix 7&lt;/a&gt; device does a great job at being confusing. I&amp;rsquo;m not ashamed to say that this is the part that took me the longest to figure, also considering the paranoia about damaging the components with non-compliant voltages.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Sine Synthesis with FPGA</title>
       <link>https://danielhacks.it/blog/20250608_sine_synthesis_on_fpga/</link>
