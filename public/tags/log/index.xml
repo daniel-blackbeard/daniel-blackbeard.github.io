@@ -6,8 +6,21 @@
     <description>Recent content in Log on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 27 Dec 2025 17:00:43 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 15 Mar 2026 11:12:58 +0100</lastBuildDate>
     <atom:link href="https://danielhacks.it/tags/log/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arty A7 Guitar Effect Chain - FIR Implementation</title>
+      <link>https://danielhacks.it/blog/20260315_fir_implementation_on_fpga/</link>
+      <pubDate>Sun, 15 Mar 2026 11:12:58 +0100</pubDate>
+      <guid>https://danielhacks.it/blog/20260315_fir_implementation_on_fpga/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;On this little project of making a guitar chain effect, the equalizer/filter will be a central component. The guitar has a particular spectrum and not all the 20KHz humans can hear are useful to be processed. In filtering out the unnecessary frequencies we get some benefits:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;All the spectral content is useful information, increasing the amount of signal we can process&lt;/li&gt;
+&lt;li&gt;We are cutting noise, which usually is very wide spectrum, oftentimes modeled as uniformly distributed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;All of this translated into better signal-to-noise ratio (SNR)&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Arty A7 Guitar Effect Chain - Introduction</title>
       <link>https://danielhacks.it/blog/20251227_guitar_effect_chain_intro/</link>
