@@ -2,7 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://danielhacks.it/tags/analog/</loc>
+    <lastmod>2026-04-07T09:39:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/blog/20260407_xadc_preamp/</loc>
+    <lastmod>2026-04-07T09:39:21+02:00</lastmod>
+  </url><url>
     <loc>https://danielhacks.it/blog/</loc>
+    <lastmod>2026-04-07T09:39:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/log/</loc>
+    <lastmod>2026-04-07T09:39:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/</loc>
     <lastmod>2026-04-07T09:39:21+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/blog/20260315_fir_implementation_on_fpga/</loc>
@@ -10,15 +22,6 @@
   </url><url>
     <loc>https://danielhacks.it/tags/hdl/</loc>
     <lastmod>2026-03-15T11:12:58+01:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/log/</loc>
-    <lastmod>2026-03-15T11:12:58+01:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/</loc>
-    <lastmod>2026-03-15T11:12:58+01:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/analog/</loc>
-    <lastmod>2025-12-27T17:00:43+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/blog/20251227_guitar_effect_chain_intro/</loc>
     <lastmod>2025-12-27T17:00:43+02:00</lastmod>

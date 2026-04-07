@@ -6,8 +6,21 @@
     <description>Recent content in Blog on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 15 Mar 2026 11:12:58 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2026 09:39:21 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Analog preamplificator for the XADC</title>
+      <link>https://danielhacks.it/blog/20260407_xadc_preamp/</link>
+      <pubDate>Tue, 07 Apr 2026 09:39:21 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20260407_xadc_preamp/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Let me take a detour from the HDL and digital things and go back for a while into analog domain. For this whole system I&amp;rsquo;m building to be any useful, the signal from the guitar has to have enough amplitude to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dominate the noise of the processing chain&lt;/li&gt;
+&lt;li&gt;Use as much as possible the XADC dynamic range.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In any case, I need something simple while also thinking I wouldn&amp;rsquo;t be able to respect myself if I do it in a circuit mounted into a breadboard. So, I took also the chance to learn the skill of PCB production in a long afternoon.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Arty A7 Guitar Effect Chain - FIR Implementation</title>
       <link>https://danielhacks.it/blog/20260315_fir_implementation_on_fpga/</link>

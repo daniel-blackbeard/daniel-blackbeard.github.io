@@ -1,6 +1,6 @@
 ---
 date: '2026-04-07T09:39:21+02:00'
-draft: true
+draft: false
 title: 'Analog preamplificator for the XADC'
 author: "Daniel Blackbeard"
 cover:
