@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ddr on Daniel Hacks It</title>
+    <link>https://danielhacks.it/tags/ddr/</link>
+    <description>Recent content in Ddr on Daniel Hacks It</description>
+    <generator>Hugo -- 0.147.5</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 14 Jun 2026 19:40:36 +0200</lastBuildDate>
+    <atom:link href="https://danielhacks.it/tags/ddr/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Delay Effect Implementation</title>
+      <link>https://danielhacks.it/blog/20250614_delay_for_the_guitar_effect/</link>
+      <pubDate>Sun, 14 Jun 2026 19:40:36 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20250614_delay_for_the_guitar_effect/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;While keeping sight of my target when doing this project, there were some components on the Arty that I don&amp;rsquo;t really know how to use. One of this was the DRAM mounted on the board. Hence, I wanted to implement the most obvious effect that needs some kind of memory of previous samples.&lt;/p&gt;
+&lt;p&gt;Basically the delay will take at some point of the chain the samples at a rate of 48KHz, store them in a circular buffer in RAM and set up a memory pointer for reading at some distance of the writing pointer in such a way that the reading is yielding back audio from the past. The maths for this are quite simple in the end, with a sampling rate of 48KHz every memory address of distance between read and write adds ~20.8 microseconds of delay. So let&amp;rsquo;s say I want a delay of up to ~2 seconds we will need 192000 bytes of memory. It&amp;rsquo;s honestly not even that much when the mounted memory is 1GByte.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
