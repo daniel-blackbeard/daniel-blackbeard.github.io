@@ -15,17 +15,17 @@ math: true
 ---
 
 ## Introduction
-While keeping sight of my target when doing this project, there were some components on the Arty that I don't really know how to use. One of this was the DRAM mounted on the board. Hence, I wanted to implement the most obvious effect that needs some kind of memory of previous samples.
+While keeping sight of my target when doing this project, there were some components on the Arty that I don't really know how to use. One of these was the DRAM mounted on the board. Hence, I wanted to implement the most obvious effect that needs some kind of memory of previous samples.
 
-Basically the delay will take at some point of the chain the samples at a rate of 48KHz, store them in a circular buffer in RAM and set up a memory pointer for reading at some distance of the writing pointer in such a way that the reading is yielding back audio from the past. The maths for this are quite simple in the end, with a sampling rate of 48KHz every memory address of distance between read and write adds ~20.8 microseconds of delay. So let's say I want a delay of up to ~2 seconds we will need 192000 bytes of memory. It's honestly not even that much when the mounted memory is 1GByte.
+Basically, at some point in the chain, the delay will take samples at a rate of 48KHz, store them in a circular buffer in RAM, and set up a read pointer at some distance from the write pointer, such that reading yields back audio from the past. The math for this is quite simple in the end: with a sampling rate of 48KHz, every memory address of distance between read and write adds ~20.8 microseconds of delay. So let's say I want a delay of up to ~2 seconds — we'll need 192000 bytes of memory. It's honestly not even that much when the mounted memory is 1GByte.
 
-So, on the specification side, I need a circular buffer that can store the 16bits samples at 48KBaud and read back with a variable distance. I will treat this module as a FIFO for all purposes from now on.
+So, on the specification side, I need a circular buffer that can store the 16-bit samples at 48KBaud and read back with a variable distance. I will treat this module as a FIFO for all purposes from now on.
 
 ## Talking with the memory controller
-Setting up the controller from Vivado was honestly a painful experience. I had to figure many things on the way, so let me put here a recipe that will be useful for the next time I have to implement a memory controller.
+Setting up the controller from Vivado was honestly a painful experience. I had to figure out many things along the way, so let me put together a recipe here that will be useful for the next time I have to implement a memory controller.
 
 ### DDR Configuration
-Almost all of the configuration can be intuitive, but Vivado might not recognize/remember you set up a Digilent board. The pin association I had to figure it out from the schematic and place it by hand. If for some reason I had to reconfigure again those settings were lost, so I spent a lot of time dealing with inserting many rows of pins on the configuration form. So, here it is the configuration of the Arty A7:
+Almost all of the configuration can be intuitive, but Vivado might not recognize or remember that you set up a Digilent board. I had to figure out the pin association from the schematic and place it by hand. If for some reason I had to reconfigure, those settings were lost, so I spent a lot of time re-entering many rows of pins in the configuration form. So, here is the configuration for the Arty A7:
 
 ```systemverilog
 NET   "ddr3_addr[0]"                           LOC = "R2"    |    ;
@@ -78,18 +78,18 @@ NET   "ddr3_reset_n"                           LOC = "K6"    |    ;
 NET   "ddr3_we_n"                              LOC = "P5"    |    ;
 ```
 
-Other settings are kind of enforced accordingly to what you want to do. I didn't wanted AXI so I disabled that interface. Another tricky part was that the exact component of my board was not the one set by default. I set MT41K128M16XX-15E for my memory and data width of 16, with 4 banks and normal ordering. 
+Other settings are basically dictated by what you want to do. I didn't want AXI, so I disabled that interface. Another tricky part was that the exact component on my board wasn't the one set by default. I set MT41K128M16XX-15E for my memory, with a data width of 16, 4 banks, and normal ordering.
 
-While I don't need crazy speed I will stick with correctness when possible, hence I set the impedance controls to RZQ/6 and using a memory address mapping as BANK-ROW-COLUMN.
+While I don't need crazy speed, I'll stick with correctness when possible — hence I set the impedance controls to RZQ/6 and used a BANK-ROW-COLUMN memory address mapping.
 
-In my application I have two clocks: system clock at 100MHz and DSP clock at 60MHz. I use the system clock for the controller, so I have to set in the configuration as "No Buffer" with reset active low and disabling the XADC because I want exclusive control from the analog front end.
+In my application I have two clocks: a system clock at 100MHz and a DSP clock at 60MHz. I use the system clock for the controller, so in the configuration I set it to "No Buffer" with reset active low, and disable the XADC because I want exclusive control from the analog front end.
 
-Other settings aren't complicated to understand, so I'm skipping. After this you get a memory controller with native interface that's not too hard to use.
+Other settings aren't complicated to understand, so I'll skip them. After this you get a memory controller with a native interface that's not too hard to use.
 
 ### Communication protocol
-Here things got a bit messy on my side. I did a controller integrated itself with the delay function, instead of implementing the controller and having a delay module using it. Hence, what comes next is not necessarily standard. 
+Here things got a bit messy on my side. I ended up making a controller that's integrated with the delay function, instead of implementing the controller separately and having a delay module use it. Hence, what comes next is not necessarily standard.
 
-The memory interface generator (MIG from now on) exposes few controls:
+The memory interface generator (MIG from now on) exposes a few controls:
 
 ```systemverilog
   // MIG interface
@@ -108,7 +108,7 @@ The memory interface generator (MIG from now on) exposes few controls:
   input  logic         calib_done,
   output logic         status
 ```
-the rules are simple and the best way to make the control is with an FSM
+The rules are simple, and the best way to implement the control is with an FSM.
 
 ```systemverilog
 case (ram_state)
@@ -123,7 +123,7 @@ case (ram_state)
   endcase
 ```
 
-This FSM starts the moment there is the request from the host side to write a sample by setting `host_wr_ff2`, then waiting for the memory controller to be ready and available for writing. For writing into the memory, there is the limit of being able to write in packets of 128 bits, so I have to pack 8 of my 16 bits samples before executing a writing operation. For this, you have to set a memory address (that will have to move in steps of 16 because a byte is 8 bits), the content to be written and when the memory controller notifies that it's ready for receiving commands, set `app_wdf_wren` and `app_en`. Something like this:
+This FSM starts the moment there's a request from the host side to write a sample — by setting `host_wr_ff2` — then waits for the memory controller to be ready and available for writing. For writing into memory, there's a limit of writing in packets of 128 bits, so I have to pack 8 of my 16-bit samples before executing a write operation. For this, you have to set a memory address (which has to move in steps of 16, because a byte is 8 bits) and the content to be written, and when the memory controller notifies that it's ready to receive commands, set `app_wdf_wren` and `app_en`. Something like this:
 
 ```systemverilog
   if(ram_state == 3'b001) begin
@@ -141,9 +141,9 @@ This FSM starts the moment there is the request from the host side to write a sa
   end
 ```
 
-A consequence of the steps of 8 bytes in writing is that the granularity of the delay is in that many samples. Before writing/reading I have to collect those 8 samples. I could just insert a single sample every 8 memory address, but I consider the granularity is good enough for the application, sitting at ~166us.
+A consequence of writing in steps of 8 bytes is that the delay's granularity is in multiples of that many samples. Before writing/reading I have to collect those 8 samples. I could just insert a single sample every 8 memory addresses, but I consider the granularity good enough for the application, sitting at ~166us.
 
-For reading is similar, but `app_cmd` changes in this case:
+Reading is similar, but `app_cmd` changes in this case:
 
 ```systemverilog
   if(ram_state == 3'b101) begin
@@ -154,7 +154,7 @@ For reading is similar, but `app_cmd` changes in this case:
   end
 ```
 
-the MIG will process the request and will notify when data is ready to be fetched.
+The MIG will process the request and will notify when data is ready to be fetched.
 
 ```systemverilog
   if(ram_state == 3'b110) begin
@@ -174,14 +174,14 @@ the MIG will process the request and will notify when data is ready to be fetche
   end
 ```
 
-This is not particularly complicated to be honest, worth avoiding the AXI interface for this simple application.
+This isn't particularly complicated, to be honest — worth avoiding the AXI interface for such a simple application.
 
-### Cross Domain Clocks
-As an analog designer, the different clocks from controller and host was kind of an obvious problem to be solved: at some points one clock will sample on the flip-flops when the data is not ready, resulting in what's defined as [metastability](https://en.wikipedia.org/wiki/Metastability_(electronics)). 
+### Cross-Domain Clocks
+As an analog designer, the fact that the controller and host run on different clocks was kind of an obvious problem to be solved: at some point one clock will sample the flip-flops when the data isn't ready, resulting in what's defined as [metastability](https://en.wikipedia.org/wiki/Metastability_(electronics)).
 
-The trick to solve the problem? just put another flip-flop. Basically a metastable latch will take relatively some clocks to resolve the metastability (depending on the architecture) so the additional flip-flop will let the previous one time to resolve the metastability (which is an undefined state, not necessarily mid-range between zero or one). This is almost a stochastic process and usually one FF is enough to avoid audible glitches, but if that was not the case, a third one will reduce the probability of a propagating bad state to extremely low values. I discovered this is something digital designers have to give a lot of thought. For me, it was expected.
+The trick to solving the problem? Just add another flip-flop. Basically, a metastable latch takes a few clock cycles to resolve (depending on the architecture), so the additional flip-flop gives the previous one time to resolve the metastability (which is an undefined state, not necessarily mid-range between zero and one). This is almost a stochastic process, and usually one FF is enough to avoid audible glitches, but if that weren't the case, a third one would reduce the probability of a bad state propagating to extremely low values. I've discovered this is something digital designers have to think about a lot. For me, it was expected.
 
-The synchronizer has to exist on the own clock domain receiving from the cross domain, so for example in the host, the piece of module will look like this:
+The synchronizer has to live in the clock domain that's receiving the cross-domain signal, so for example on the host side, the piece of module will look like this:
 
 ```systemverilog
 always @(posedge clk_host) begin
@@ -208,10 +208,10 @@ always @(posedge clk_host) begin
 end
 ```
 
-So `ram_wr_flag` is getting generated on the MIG clock domain, but it passes through two registers `ram_wr_ff1` and `ram_wr_ff2` sampled on the host domain before being used (`ram_wr_ff2` being the useful bit, never use `ram_wr_ff1`). Same for the MIG domain, reasoning on the contrary.
+So `ram_wr_flag` is getting generated on the MIG clock domain, but it passes through two registers `ram_wr_ff1` and `ram_wr_ff2` sampled on the host domain before being used (`ram_wr_ff2` being the useful bit, never use `ram_wr_ff1`). Same for the MIG domain, just reasoning in the opposite direction.
 
 ## Implementation at the top
-The MIG will launch a calibration step at power up, so on the top module, we have to hold the controller in reset until the calibration is done. Usually there is a flag to be read, but in my case I just wait for some time
+The MIG will launch a calibration step at power-up, so on the top module, we have to hold the controller in reset until the calibration is done. Usually there is a flag to be read, but in my case I just wait for some time.
 
 ```systemverilog
 // -------------------------------------------------------------------------
@@ -295,11 +295,11 @@ mig_7series_0 u_mig (
     .device_temp        ()
 );
 ```
-remember I wanted the XADC module exclusive for the front end, hence the temperature is just hard-coded into the module and we disregard the effect on the calibration for this application.
+Remember, I wanted the XADC module reserved exclusively for the front end, so the temperature is just hard-coded into the module, and we disregard its effect on calibration for this application.
 
-## Conclussion
+## Conclusion
 
-This is almost a recipe for a MIG implementation, where the key lessons are
-* Next time, separate the controller from the user. In the way I did, I can't really use the memory for something else
-* The CDC was an expected behavior, with an intuitive solution that happened to be also the standard solution
-* As the project increases in complexity, I will be needing some way for testing (DFT). I will be writing about my solution on this in the next blog
+This is almost a recipe for a MIG implementation, where the key lessons are:
+* Next time, separate the controller from the user. The way I did it, I can't really use the memory for anything else.
+* The CDC was an expected behavior, with an intuitive solution that happened to also be the standard one.
+* As the project increases in complexity, I will need some way of testing (DFT). I will be writing about my solution to this in the next post.

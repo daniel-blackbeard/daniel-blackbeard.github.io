@@ -15,29 +15,29 @@ math: true
 
 ## Introduction
 
-On this little project of making a guitar chain effect, the equalizer/filter will be a central component. The guitar has a particular spectrum and not all the 20KHz humans can hear are useful to be processed. In filtering out the unnecessary frequencies we get some benefits:
+On this little project of making a guitar effect chain, the equalizer/filter will be a central component. The guitar has a particular spectrum, and not everything within the 20KHz humans can hear needs to be processed. In filtering out the unnecessary frequencies we get some benefits:
 * All the spectral content is useful information, increasing the amount of signal we can process
-* We are cutting noise, which usually is very wide spectrum, oftentimes modeled as uniformly distributed
+* We are cutting noise, which is usually very wideband, often modeled as uniformly distributed
 
-All of this translated into better signal-to-noise ratio (SNR)
+All of this translates into a better signal-to-noise ratio (SNR).
 
-Although that's not the only benefit we get from a filter, as we can also use the filter to shape the spectrum of the sound, boosting or attenuating certain bands as we wanted. For this implementation I choose a finite impulse response (FIR) filter. This is quite easy to implement in an FPGA in principle, since it's just a buffer of samples in some kind of FIFO, a memory to store the correcting taps, some multiplicators and a final summation of all the calculated values. It would look something like this: 
+That's not the only benefit we get from a filter, though, as we can also use it to shape the spectrum of the sound, boosting or attenuating certain bands as we want. For this implementation I chose a finite impulse response (FIR) filter. This is quite easy to implement in an FPGA in principle, since it's just a buffer of samples in some kind of FIFO, a memory to store the correcting taps, some multipliers, and a final summation of all the calculated values. It would look something like this:
 
 {{< figure src="/images/fir_example.png" caption="Example of FIR implementation with 4 taps" alt="Example of FIR implementation with 4 taps" align="center">}}
 
-In the picture there is a 4 tap FIR filter, it will need 4 coefficients previously calculated and stored in some memory, some shift registers and a final sum. As you can see, quite simple circuit that abides to simple mathematics. With its simplicity comes a great flexibility on how to implement, and this is what we will be discussing here.
+In the picture there is a 4-tap FIR filter: it needs 4 coefficients previously calculated and stored in some memory, some shift registers, and a final sum. As you can see, it's quite a simple circuit that follows simple mathematics. With its simplicity comes great flexibility in how to implement it, and this is what we will be discussing here.
 
 ## Design Tradeoff
 
-On first approximation, the granularity of the frequency response, that is, how good this filter is at manipulating narrow bands, depends on the number of taps. However, in my board I have DSP cells that implement multiplication, not so many mind you, in my case 240. This means that from 48KHz, if I used blindly the DSP cells to implement the filters I would be able to manipulate bands of 200Hz, which is not bad if it weren't because I'm left without hardware for anything else. So, let's make some considerations here:
-* The Arty operates on the megahertz, I need to process data at 48KHz
+On first approximation, the granularity of the frequency response — that is, how good this filter is at manipulating narrow bands — depends on the number of taps. However, on my board I have DSP cells that implement multiplication, not too many mind you, 240 in my case. This means that, at 48KHz, if I blindly used all the DSP cells to implement the filter, I could manipulate bands as narrow as 200Hz — not bad, if it weren't for the fact that I'd be left without hardware for anything else. So, let's make some considerations here:
+* The Arty operates in the megahertz range, but I need to process data at 48KHz
 * I can afford some audible delay, on the order of 10ms at most
 
-Hence, what I will do is that I will be using only 8 DSP cells, that will run through the FIFO and the tap memory, and multiply and accumulate (a feature of Artix DSP cells) the results. This has the additional advantage of reducing the complexity of the final adder in case of big tap numbers. This operation will happen at 60MHz, hence if we wanted 256 taps, with 8 DSP cells we have to run through 32 data samples, taking something around 2 microseconds, we have a budget of 20 microseconds from a sampling rate of 48KHz, hence we can be good up to some hundred of FIR coefficients. This technique is called `time-multiplexion`.
+Hence, what I'll do is use only 8 DSP cells that run through the FIFO and the tap memory, multiplying and accumulating (a feature of the Artix DSP cells) the results. This has the additional advantage of reducing the complexity of the final adder for large tap counts. This operation happens at 60MHz, so if we wanted 256 taps, with 8 DSP cells we'd have to run through 32 data samples — taking around 2 microseconds. We have a budget of 20 microseconds from a sampling rate of 48KHz, so we're good up to a few hundred FIR coefficients. This technique is called `time-multiplexing`.
 
 ## FIR Design
 
-As commented before, we need a way to store many samples for the calculation, so a basic shift register is implemented here
+As mentioned before, we need a way to store many samples for the calculation, so a basic shift register is implemented here.
 
 ```systemverilog
   always_ff @(posedge clk or negedge rst_n) begin
@@ -52,9 +52,9 @@ As commented before, we need a way to store many samples for the calculation, so
   end
 ```
 
-Then, a Finite State Machine (FSM) will be used to control the flow of the computation. Every time we get a new sample from the previous steps (at 48KHz) we start the machine to calculate the FIR value. When it's done calculating it will be set on IDLE and await for the next sample. Fairly simple.
+Then, a Finite State Machine (FSM) will be used to control the flow of the computation. Every time we get a new sample from the previous steps (at 48KHz), we start the machine to calculate the FIR value. When it's done calculating, it's set to IDLE and awaits the next sample. Fairly simple.
 
-In doing those operations, we defined the `PARALLELISM`, which is the number of DSP cells we want to use for the FIR implementation and `NUM_TAPS` which is the number of FIR coefficients. The FSM will run until `NUM_MAC_STEPS` calculations has been performed.
+In doing those operations, we defined `PARALLELISM`, which is the number of DSP cells we want to use for the FIR implementation, and `NUM_TAPS`, which is the number of FIR coefficients. The FSM will run until `NUM_MAC_STEPS` calculations have been performed.
 
 ```systemverilog
   localparam int NUM_MAC_STEPS = NUM_TAPS / PARALLELISM;
@@ -103,7 +103,7 @@ In doing those operations, we defined the `PARALLELISM`, which is the number of 
   end
 ```
 
-Here we generate two variables: `tap_idx` which is basically the address of the coefficient in memory, and `mac_step` which will keep track of the parallel operation to conclude the FSM `MAC` state. With `tap_idx` we can select the taps to be used on the current multiplication step from the memory `taps_flat`. For the DSP cells, we will also have to extend the data to 18bit signed, we do this per a sample basis to avoid extra storage of extended data.
+Here we generate two variables: `tap_idx`, which is basically the address of the coefficient in memory, and `mac_step`, which keeps track of the parallel operation to conclude the FSM's `MAC` state. With `tap_idx` we can select the taps to be used in the current multiplication step from the memory `taps_flat`. For the DSP cells, we also have to extend the data to 18-bit signed. We do this on a per-sample basis to avoid extra storage of extended data.
 
  ```systemverilog
   generate
@@ -119,7 +119,7 @@ Here we generate two variables: `tap_idx` which is basically the address of the 
   endgenerate
  ```
 
- And then the last step, where the magic happens. On a new sample, the accumulator and partial sum gets reset. Then on `MAC` state the multiplications happen. Here, it's important to communicate Vivado that we will be using DSP cells for multiplication with `(* use_dsp = "yes" *)`, else it will try to use LUTs to synthesize them, which is hardware expensive and fairly inefficient.
+ And then the last step, where the magic happens. On a new sample, the accumulator and partial sum get reset. Then, in the `MAC` state, the multiplications happen. Here, it's important to tell Vivado that we'll be using DSP cells for multiplication with `(* use_dsp = "yes" *)`, else it will try to use LUTs to synthesize them, which is expensive in hardware and fairly inefficient.
 
  Also, for my specific use case, I unrolled the sum depending on how many DSP cells I want to use. I will mainly stick with 8, but one never knows.
 
@@ -183,10 +183,10 @@ Here we generate two variables: `tap_idx` which is basically the address of the 
   end
  ```
 
- At every `MAC_STEP` we accumulate the `partial_sum` and in state `DONE` we propagate the result to the output to avoid glitches, also informing the next cell that the sample is ready.
+ At every `MAC_STEP` we accumulate the `partial_sum`, and in the `DONE` state we propagate the result to the output to avoid glitches, also informing the next cell that the sample is ready.
 
- ## Conclussion
+ ## Conclusion
 
- Here we presented a digital implementation of a filter, where we trade off area/power consumption with delay. Since we can afford some delay, this tradeoff has overall benefits on the implementation without any extra complexity on the users of this block. For my use I will stick to 256/512 taps and 8 DSP units in parallel, still giving me the feel of real time, no matter how hard I try to hear any kind of delay. Next article I will be delving a bit on the analog part of this project, as I need a front-end for the ADC.
+ Here we presented a digital implementation of a filter, where we trade off area/power consumption against delay. Since we can afford some delay, this tradeoff has overall benefits for the implementation without any extra complexity for the users of this block. For my use I will stick to 256/512 taps and 8 DSP units in parallel, still giving me the feel of real-time processing, no matter how hard I try to hear any kind of delay. In the next article I will be delving a bit into the analog part of this project, as I need a front end for the ADC.
 
- Stay tuned
+ Stay tuned.

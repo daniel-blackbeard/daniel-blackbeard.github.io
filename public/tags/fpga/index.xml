@@ -14,10 +14,10 @@
       <pubDate>Wed, 28 May 2025 17:12:23 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250529_uart_for_practice/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;So, after you are done with the book and implemented your first 8-bit CPU you keep wondering&lt;/p&gt;
+&lt;p&gt;So, after you&amp;rsquo;re done with the book and have implemented your first 8-bit CPU, you keep wondering&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;ok, but now I want to do real world stuff&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;Here I got you back, nothing comes before when it comes to real world stuff that having the capability of sending data to/from other devices. When I began my personal projects, when I got my Arty A7, I thought that I needed to be able to debug what&amp;rsquo;s happening inside the FPGA when the internal logic analyzer might not be too reliable (pro-tip: it&amp;rsquo;s very reliable). So being able to send to a computer data using a simple protocol is a must.&lt;/p&gt;</description>
+&lt;p&gt;ok, but now I want to do real-world stuff&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;I&amp;rsquo;ve got you covered — when it comes to real-world stuff, nothing beats having the capability to send data to and from other devices. When I began my personal projects, right after getting my Arty A7, I thought I&amp;rsquo;d need to debug what&amp;rsquo;s happening inside the FPGA in case the internal logic analyzer wasn&amp;rsquo;t reliable (pro tip: it&amp;rsquo;s very reliable). So being able to send data to a computer using a simple protocol is a must.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

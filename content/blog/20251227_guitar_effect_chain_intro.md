@@ -16,41 +16,41 @@ math: true
 
 ## Introduction
 
-It took me a while to come with worthy content, but here I am. I have been working on getting my FPGA board to sample analog audio with the internal ADC for a project proposed by a colleague as a way to learn the intricacies of digital design. Let me tell you straight: [documentation about the ADC of this Artix 7](https://docs.amd.com/r/en-US/ug480_7Series_XADC) device does a great job at being confusing. I'm not ashamed to say that this is the part that took me the longest to figure, also considering the paranoia about damaging the components with non-compliant voltages.
+It took me a while to come up with worthy content, but here I am. I have been working on getting my FPGA board to sample analog audio with the internal ADC for a project proposed by a colleague as a way to learn the intricacies of digital design. Let me tell you straight: the [documentation for the ADC on this Artix 7](https://docs.amd.com/r/en-US/ug480_7Series_XADC) device does a great job of being confusing. I'm not ashamed to say that this is the part that took me the longest to figure out, also considering my paranoia about damaging the components with non-compliant voltages.
 
-So, before starting with anything related the actual implementation of this effect/filter chain in an FPGA, let's agree on some architecture. Consider my limited experience on this kind of projects, many this I found they can be done better. But for starters this will work.
+So, before starting on the actual implementation of this effect/filter chain in an FPGA, let's agree on some architecture. Given my limited experience with this kind of project, there's a lot I found could be done better. But for starters, this will work.
 
 ## Effect Chain Architecture
 
-Let's set some constraints to the design of this architecture<cite>[^1]</cite>:
-1. I want 48KHz sample rate for the audio, for using my already designed [I2C interface](../../blog/20250608_digital_audio_with_i2s/)
-2. I want maximum sample rate possible from the XADC (from documentation, 12bits 1MSPS)
-3. I want to avoid clock cross-domains, hence the same clock will have to drive the ADC and the I2C interface
+Let's set some constraints for the design of this architecture<cite>[^1]</cite>:
+1. I want a 48KHz sample rate for the audio, to use my already-designed [I2S interface](../../blog/20250608_digital_audio_with_i2s/)
+2. I want the maximum sample rate possible from the XADC (per the documentation, 12-bit at 1MSPS)
+3. I want to avoid clock cross-domains, hence the same clock will have to drive the ADC and the I2S interface
 
-The third constraint is tricky, because the XADC takes 26 clock cycles<cite>[^2]</cite> to sample the input, so if I wanted 1MSPS, I would need 26MHz clock. However, I also need 48KHz clock/strobe for the I2S and the audio processing chain in general. Considering the PLL in the Artix 7 device can't go bellow 10MHz, I will have to strobe the audio chain out of the same clock as the ADC while also making them synchronous (an integer number of samples from the XADC processed per 48KHz period). For this reason, I will choose the frequency of the PLL as 60MHz, set the divider on the XADC by 3 (hence it will have an internal clock of 20MHz) and set the divider of the audio chain by 26*48 = 1248. This will make the audio chain to have a sampling rate of 48076.92Hz. Close enough, none will notice.
+The third constraint is tricky, because the XADC takes 26 clock cycles<cite>[^2]</cite> to sample the input, so if I wanted 1MSPS, I would need a 26MHz clock. However, I also need a 48KHz clock/strobe for the I2S and the audio processing chain in general. Considering the PLL in the Artix 7 device can't go below 10MHz, I will have to strobe the audio chain off the same clock as the ADC while also making them synchronous (an integer number of samples from the XADC processed per 48KHz period). For this reason, I will choose the PLL frequency as 60MHz, set the divider on the XADC to 3 (hence it will have an internal clock of 20MHz), and set the divider of the audio chain to 26*48 = 1248. This gives the audio chain a sampling rate of 48076.92Hz. Close enough, no one will notice.
 
-Still, there is the discrepancy between the sample rate of the XADC (about 770KSPS) and the 48KSPS we want for audio processing. But that comes easy and with benefits: let's just add an accumulator by 16. So basically, we accumulate 16 samples of the XADC with two benefits:
-1. It reduces the noise of the analog front-end and XADC by applying a low pass filtering
-2. It increases the resolution of the data from 12bits (XADC samples are 12bit) to 16 which I like more.
+Still, there is the discrepancy between the sample rate of the XADC (about 770KSPS) and the 48KSPS we want for audio processing. But that's easy to fix, and it comes with benefits: let's just add an accumulator that sums 16 samples. So basically, we accumulate 16 samples of the XADC with two benefits:
+1. It reduces the noise of the analog front-end and XADC by applying low-pass filtering
+2. It increases the resolution of the data from 12-bit (XADC samples are 12-bit) to 16, which I like more.
 
-So, we could put a block diagram for the system as follows:
+So, we could draw up a block diagram for the system as follows:
 
 {{< figure src="/images/audio_chain_arch.png" caption="Block diagram of the effect chain architecture" alt="Audio effect chain block diagram" align="center">}}
 
-In this blog I will just briefly outline the XADC configuration, in case you find this blog while trying to sample with it as I did, and the accumulator code. In the next articles I will be covering the next pieces:
+In this post, I'll just briefly outline the XADC configuration — in case you find this while trying to sample with it, as I did — and the accumulator code. In the next articles I will be covering the following pieces:
 1. Analog front-end design
 2. Finite Impulse Response (FIR) filter digital design
 3. Control unit for a pseudo register map implementation and UART communication
 4. Routing system for the effect chain
 5. Brief discussion on the effects that will be created
 
-At the moment of writing, I have everything but the last two points, hopefully by the day I start writing it I have completed the project.
+At the time of writing, I have everything but the last two points — hopefully by the day I start writing about them, I'll have completed the project.
 
 ## Quick XADC snippet
 
-As commented before, documentation is fairly complicated to navigate, and it took me a while to figure this out, so I'm just giving you a recipe to start with the XADC for your own projects. I have put the most important comments on the code to set it up properly. For the internals, use the wizard for single channel, continuous sampling from the analog pins as set from the design constraints file. 
+As mentioned before, the documentation is fairly complicated to navigate, and it took me a while to figure this out, so I'm just giving you a recipe to start with the XADC for your own projects. I have put the most important comments in the code to set it up properly. For the internals, use the wizard for single-channel, continuous sampling from the analog pins as set in the design constraints file.
 
-Set other settings as you like as they aren't important at all. As I don't need the extra complication of an AXI bus, I will stick with DRP
+Set the other settings as you like — they aren't important at all. As I don't need the extra complication of an AXI bus, I will stick with DRP.
 
 ```systemverilog
 xadc_wiz_0 XADC(
@@ -75,7 +75,7 @@ xadc_wiz_0 XADC(
 
 ## Accumulator implementation
 
-This is nothing fancy: we use the main clock and a carry adder for accumulating samples until it counts 16 steps, then providing the result to the output and a signal for `sample_ready` We can do this really quickly without timing issues in the available sampling time of the XADC (1.3us) so simple strategy is better. The XADC even provides a signal for `sampling_done` we can use to not waste transitions on this little block. 
+This is nothing fancy: we use the main clock and a carry adder to accumulate samples until it counts 16 steps, then provide the result to the output along with a `sample_ready` signal. We can do this really quickly without timing issues in the available sampling time of the XADC (1.3us), so a simple strategy is better. The XADC even provides a `sampling_done` signal we can use to avoid wasting transitions on this little block.
 
 Here is the snippet:
 
@@ -113,12 +113,12 @@ module accumulator_16(
 endmodule
 ```
 
-Now, if you're paying attention, you will see the input of the accumulator is 16bits, not 12bits. Well, it just happens that the XADC will provide 16bits, where the 4LSBs are declared for "averaging". Which is what we are doing right here. Still, I will be keeping the 16bits output. For my purposes this will give me enough resolution for all the computing I have to do on the guitar audio.
+Now, if you're paying attention, you will see the input of the accumulator is 16-bit, not 12-bit. Well, it just happens that the XADC provides 16 bits, where the 4 LSBs are declared for "averaging" — which is what we're doing right here. Still, I will be keeping the 16-bit output. For my purposes, this will give me enough resolution for all the computing I have to do on the guitar audio.
 
-## Conclussion
-We are providing here the beginning of a hobby project I'm dreaming since childhood: my own guitar effects. We set the strategy and the next steps to make this become reality.
+## Conclusion
+Here we have the beginning of a hobby project I've been dreaming about since childhood: my own guitar effects. We set the strategy and the next steps to make it a reality.
 
-Stay tuned
+Stay tuned.
 
 
 [^1]: As the good master Aloys said in Fux's book: the mastery of the rules is the way to artistic freedom, it's within the constraints that real creativity is born.

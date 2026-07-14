@@ -14,21 +14,21 @@
       <pubDate>Sun, 14 Jun 2026 19:40:36 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250614_delay_for_the_guitar_effect/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;While keeping sight of my target when doing this project, there were some components on the Arty that I don&amp;rsquo;t really know how to use. One of this was the DRAM mounted on the board. Hence, I wanted to implement the most obvious effect that needs some kind of memory of previous samples.&lt;/p&gt;
-&lt;p&gt;Basically the delay will take at some point of the chain the samples at a rate of 48KHz, store them in a circular buffer in RAM and set up a memory pointer for reading at some distance of the writing pointer in such a way that the reading is yielding back audio from the past. The maths for this are quite simple in the end, with a sampling rate of 48KHz every memory address of distance between read and write adds ~20.8 microseconds of delay. So let&amp;rsquo;s say I want a delay of up to ~2 seconds we will need 192000 bytes of memory. It&amp;rsquo;s honestly not even that much when the mounted memory is 1GByte.&lt;/p&gt;</description>
+&lt;p&gt;While keeping sight of my target when doing this project, there were some components on the Arty that I don&amp;rsquo;t really know how to use. One of these was the DRAM mounted on the board. Hence, I wanted to implement the most obvious effect that needs some kind of memory of previous samples.&lt;/p&gt;
+&lt;p&gt;Basically, at some point in the chain, the delay will take samples at a rate of 48KHz, store them in a circular buffer in RAM, and set up a read pointer at some distance from the write pointer, such that reading yields back audio from the past. The math for this is quite simple in the end: with a sampling rate of 48KHz, every memory address of distance between read and write adds ~20.8 microseconds of delay. So let&amp;rsquo;s say I want a delay of up to ~2 seconds — we&amp;rsquo;ll need 192000 bytes of memory. It&amp;rsquo;s honestly not even that much when the mounted memory is 1GByte.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Analog preamplificator for the XADC</title>
+      <title>Analog preamplifier for the XADC</title>
       <link>https://danielhacks.it/blog/20260407_xadc_preamp/</link>
       <pubDate>Tue, 07 Apr 2026 09:39:21 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20260407_xadc_preamp/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Let me take a detour from the HDL and digital things and go back for a while into analog domain. For this whole system I&amp;rsquo;m building to be any useful, the signal from the guitar has to have enough amplitude to:&lt;/p&gt;
+&lt;p&gt;Let me take a detour from the HDL and digital things and go back for a while into the analog domain. For this whole system I&amp;rsquo;m building to be of any use, the signal from the guitar has to have enough amplitude to:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Dominate the noise of the processing chain&lt;/li&gt;
-&lt;li&gt;Use as much as possible the XADC dynamic range.&lt;/li&gt;
+&lt;li&gt;Use as much of the XADC&amp;rsquo;s dynamic range as possible&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;In any case, I need something simple while also thinking I wouldn&amp;rsquo;t be able to respect myself if I do it in a circuit mounted into a breadboard. So, I took also the chance to learn the skill of PCB production in a long afternoon.&lt;/p&gt;</description>
+&lt;p&gt;In any case, I need something simple, while also thinking I wouldn&amp;rsquo;t be able to respect myself if I built it as a circuit mounted on a breadboard. So, I also took the chance to learn PCB production in a long afternoon.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Arty A7 Guitar Effect Chain - FIR Implementation</title>
@@ -36,12 +36,12 @@
       <pubDate>Sun, 15 Mar 2026 11:12:58 +0100</pubDate>
       <guid>https://danielhacks.it/blog/20260315_fir_implementation_on_fpga/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;On this little project of making a guitar chain effect, the equalizer/filter will be a central component. The guitar has a particular spectrum and not all the 20KHz humans can hear are useful to be processed. In filtering out the unnecessary frequencies we get some benefits:&lt;/p&gt;
+&lt;p&gt;On this little project of making a guitar effect chain, the equalizer/filter will be a central component. The guitar has a particular spectrum, and not everything within the 20KHz humans can hear needs to be processed. In filtering out the unnecessary frequencies we get some benefits:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;All the spectral content is useful information, increasing the amount of signal we can process&lt;/li&gt;
-&lt;li&gt;We are cutting noise, which usually is very wide spectrum, oftentimes modeled as uniformly distributed&lt;/li&gt;
+&lt;li&gt;We are cutting noise, which is usually very wideband, often modeled as uniformly distributed&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;All of this translated into better signal-to-noise ratio (SNR)&lt;/p&gt;</description>
+&lt;p&gt;All of this translates into a better signal-to-noise ratio (SNR).&lt;/p&gt;</description>
     </item>
     <item>
       <title>Arty A7 Guitar Effect Chain - Introduction</title>
@@ -49,7 +49,7 @@
       <pubDate>Sat, 27 Dec 2025 17:00:43 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20251227_guitar_effect_chain_intro/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;It took me a while to come with worthy content, but here I am. I have been working on getting my FPGA board to sample analog audio with the internal ADC for a project proposed by a colleague as a way to learn the intricacies of digital design. Let me tell you straight: &lt;a href=&#34;https://docs.amd.com/r/en-US/ug480_7Series_XADC&#34;&gt;documentation about the ADC of this Artix 7&lt;/a&gt; device does a great job at being confusing. I&amp;rsquo;m not ashamed to say that this is the part that took me the longest to figure, also considering the paranoia about damaging the components with non-compliant voltages.&lt;/p&gt;</description>
+&lt;p&gt;It took me a while to come up with worthy content, but here I am. I have been working on getting my FPGA board to sample analog audio with the internal ADC for a project proposed by a colleague as a way to learn the intricacies of digital design. Let me tell you straight: the &lt;a href=&#34;https://docs.amd.com/r/en-US/ug480_7Series_XADC&#34;&gt;documentation for the ADC on this Artix 7&lt;/a&gt; device does a great job of being confusing. I&amp;rsquo;m not ashamed to say that this is the part that took me the longest to figure out, also considering my paranoia about damaging the components with non-compliant voltages.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Sine Synthesis with FPGA</title>
@@ -57,15 +57,15 @@
       <pubDate>Sun, 15 Jun 2025 15:00:43 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250608_sine_synthesis_on_fpga/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Last time we did together a circuit using verilog to communicate to a I2S device. But we never delved into how to make a waveform for it.&lt;/p&gt;
-&lt;p&gt;Now, don&amp;rsquo;t get me wrong: if you did the blinky led example while starting your first projects, this can be easily achievable for you:&lt;/p&gt;
+&lt;p&gt;Last time, we built a circuit together using Verilog to communicate with an I2S device. But we never delved into how to make a waveform for it.&lt;/p&gt;
+&lt;p&gt;Now, don&amp;rsquo;t get me wrong: if you did the blinky LED example when starting your first projects, this should be easy for you:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;A square pattern is just zeros and ones&lt;/li&gt;
 &lt;li&gt;A saw pattern is a counter from zero to max&lt;/li&gt;
 &lt;li&gt;A triangle wave is a counter that goes back after hitting max or min values&lt;/li&gt;
 &lt;li&gt;A sine wave is just some &lt;a href=&#34;https://en.wikipedia.org/wiki/CORDIC&#34;&gt;CORDIC&lt;/a&gt;&amp;hellip;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Now, we will not be using CORDIC and will not be doing simple counters. I want to show you a couple of tricks to generate a clean sine waveform that you can later compose to create more fancy sounds.&lt;/p&gt;</description>
+&lt;p&gt;Now, we will not be using CORDIC and will not be doing simple counters. I want to show you a couple of tricks to generate a clean sine waveform that you can later compose to create fancier sounds.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Digital audio with I2S</title>
@@ -73,8 +73,8 @@
       <pubDate>Sun, 08 Jun 2025 14:12:26 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250608_digital_audio_with_i2s/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;As you perhaps know, I&amp;rsquo;m working on this blog also as a way to log my learning journey. So, to support the lack of interesting peripherals on the Arty A7, I bought a set of modules for Arduino. Most of them quite uninteresting, but I got this I2S DAC module from &lt;a href=&#34;https://www.adafruit.com/product/3678&#34;&gt;Adafruit&lt;/a&gt; that implements the UDA1334A from NXP (&lt;a href=&#34;https://www.nxp.com/docs/en/data-sheet/UDA1334ATS.pdf&#34;&gt;datasheet&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;This device interest me the most among the ones I got from the assortment, because since I was a kid I wanted to make my own guitar effects (in fact, I believe many electronic engineers are born this way or similar), so the end goal is quite ambitious as you can see. But let&amp;rsquo;s start from something easy.&lt;/p&gt;</description>
+&lt;p&gt;As you may know, I&amp;rsquo;m working on this blog also as a way to log my learning journey. So, to make up for the lack of interesting peripherals on the Arty A7, I bought a set of modules for Arduino. Most of them were quite uninteresting, but I got this I2S DAC module from &lt;a href=&#34;https://www.adafruit.com/product/3678&#34;&gt;Adafruit&lt;/a&gt; that implements the UDA1334A from NXP (&lt;a href=&#34;https://www.nxp.com/docs/en/data-sheet/UDA1334ATS.pdf&#34;&gt;datasheet&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;This device interests me the most among the ones I got in the assortment, because ever since I was a kid I&amp;rsquo;ve wanted to make my own guitar effects (in fact, I believe many electronic engineers are born this way, or something similar), so the end goal is quite ambitious as you can see. But let&amp;rsquo;s start with something easy.&lt;/p&gt;</description>
     </item>
     <item>
       <title>UART: the basics after you know the very basics</title>
@@ -82,19 +82,19 @@
       <pubDate>Wed, 28 May 2025 17:12:23 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250529_uart_for_practice/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;So, after you are done with the book and implemented your first 8-bit CPU you keep wondering&lt;/p&gt;
+&lt;p&gt;So, after you&amp;rsquo;re done with the book and have implemented your first 8-bit CPU, you keep wondering&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;ok, but now I want to do real world stuff&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;Here I got you back, nothing comes before when it comes to real world stuff that having the capability of sending data to/from other devices. When I began my personal projects, when I got my Arty A7, I thought that I needed to be able to debug what&amp;rsquo;s happening inside the FPGA when the internal logic analyzer might not be too reliable (pro-tip: it&amp;rsquo;s very reliable). So being able to send to a computer data using a simple protocol is a must.&lt;/p&gt;</description>
+&lt;p&gt;ok, but now I want to do real-world stuff&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;I&amp;rsquo;ve got you covered — when it comes to real-world stuff, nothing beats having the capability to send data to and from other devices. When I began my personal projects, right after getting my Arty A7, I thought I&amp;rsquo;d need to debug what&amp;rsquo;s happening inside the FPGA in case the internal logic analyzer wasn&amp;rsquo;t reliable (pro tip: it&amp;rsquo;s very reliable). So being able to send data to a computer using a simple protocol is a must.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>What Is HDL? The explanation you did not requested</title>
+      <title>What Is HDL? The explanation you did not request</title>
       <link>https://danielhacks.it/blog/20250527_what-is-hdl/</link>
       <pubDate>Tue, 27 May 2025 16:43:31 +0200</pubDate>
       <guid>https://danielhacks.it/blog/20250527_what-is-hdl/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;If you are a hardware engineer you need no explanation though, this is more for the programming guys who attempt to make things with an FPGA in the belief that is the next step of Arduino (I do think that though, so no judgment made here)&lt;/p&gt;
-&lt;p&gt;As someone who wrote a lot of code in my young age (still loving fiddling with Linux kernel), I&amp;rsquo;m lucky I got the purpose of HDL.&lt;/p&gt;</description>
+&lt;p&gt;If you&amp;rsquo;re a hardware engineer you need no explanation — this is more for the programmers who try to build things with an FPGA, believing it&amp;rsquo;s the next step up from Arduino. (I happen to agree, so no judgment here.)&lt;/p&gt;
+&lt;p&gt;As someone who wrote a lot of code in my youth (and still loves fiddling with the Linux kernel), I&amp;rsquo;m lucky that I understood the purpose of HDL early on.&lt;/p&gt;</description>
     </item>
     <item>
       <title>About</title>
@@ -109,9 +109,9 @@
         &lt;/figcaption&gt;
 &lt;/figure&gt;
 
-&lt;p&gt;I&amp;rsquo;m Daniel, a microelectronics engineer working on cutting edge optical links, but with a general passion for electronics since I was 13 years old. Based in Italy, from the best analog microelectronics school around (and they know it).&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;m Daniel, a microelectronics engineer working on cutting-edge optical links, with a general passion for electronics since I was 13 years old. Based in Italy, from the best analog microelectronics school around (and they know it).&lt;/p&gt;
 &lt;h2 id=&#34;what-is-this-blog-about&#34;&gt;What is this blog about&lt;/h2&gt;
-&lt;p&gt;In principle, I wanted to make a web log for my learning activity on digital design and FPGA. But well in the deep, I&amp;rsquo;m an analog circuit designer, and even deeper, a physicist. So I guess at some point the arguments will diverge onto many of my interests. But what blog writer doesn&amp;rsquo;t do that?&lt;/p&gt;</description>
+&lt;p&gt;In principle, I wanted to make a web log for my learning activity on digital design and FPGA. But deep down, I&amp;rsquo;m an analog circuit designer, and even deeper, a physicist. So I guess at some point the topics will branch out into many of my other interests. But what blog writer doesn&amp;rsquo;t do that?&lt;/p&gt;</description>
     </item>
     <item>
       <title>Resources</title>
@@ -128,8 +128,8 @@
       <link>https://danielhacks.it/blog/20250525_introduction/</link>
       <pubDate>Sun, 25 May 2025 00:00:00 +0000</pubDate>
       <guid>https://danielhacks.it/blog/20250525_introduction/</guid>
-      <description>&lt;p&gt;Let me be brief, as this is just to fill the emptyness of a newly created blog: I want to learn new skills and take notes that can be shared with people in the hope they will find useful as well.&lt;/p&gt;
-&lt;p&gt;In this blog I have the plan to showcase my personal projects on electronics and perhaps other fields, maybe adding some of the knowledge I have accumulated in the last years in the field (if it doesn&amp;rsquo;t break any NDA, of course).&lt;/p&gt;</description>
+      <description>&lt;p&gt;Let me be brief, as this is just to fill the emptiness of a newly created blog: I want to learn new skills and take notes that can be shared with people, in the hope that they will find them useful as well.&lt;/p&gt;
+&lt;p&gt;In this blog I have the plan to showcase my personal projects on electronics and perhaps other fields, maybe adding some of the knowledge I have accumulated over the last few years in the field (if it doesn&amp;rsquo;t break any NDA, of course).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
