@@ -3,7 +3,16 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://danielhacks.it/blog/</loc>
-    <lastmod>2026-06-14T19:40:36+02:00</lastmod>
+    <lastmod>2026-07-22T04:53:37+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/log/</loc>
+    <lastmod>2026-07-22T04:53:37+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/</loc>
+    <lastmod>2026-07-22T04:53:37+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/blog/why-i-started-digital-design/</loc>
+    <lastmod>2026-07-22T04:53:37+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/ddr/</loc>
     <lastmod>2026-06-14T19:40:36+02:00</lastmod>
@@ -12,12 +21,6 @@
     <lastmod>2026-06-14T19:40:36+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/hdl/</loc>
-    <lastmod>2026-06-14T19:40:36+02:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/log/</loc>
-    <lastmod>2026-06-14T19:40:36+02:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/</loc>
     <lastmod>2026-06-14T19:40:36+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/analog/</loc>
