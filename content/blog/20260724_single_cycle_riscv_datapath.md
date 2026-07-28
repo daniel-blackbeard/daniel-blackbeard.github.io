@@ -73,8 +73,9 @@ While not extensive as the real tests, it will stress many tricky instructions l
 ## Block diagram
  
 Before getting into individual blocks, here's how they connect in the single-cycle datapath:
- 
-> replace this with the .png diagram I will generate later
+
+{{< figure src="/images/riscv_single_cycle_block_diagram.png" caption="Block diagram of a single cycle RISCV without control unit" alt="Block diagram of a single cycle RISCV without control unitr" align="center">}}
+
  
 At a glance: the PC drives instruction fetch, the control unit decodes the instruction into every downstream select signal, the register file and immediate decoder feed the ALU, and the ALU's result branches out to either data memory (loads/stores) or back into the register write-back mux — all within a single clock cycle, which is exactly what makes this a *single-cycle* design: no pipeline registers, no stalls, just one long combinational path from fetch to write-back on every clock edge.
  
