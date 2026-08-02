@@ -2,22 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://danielhacks.it/tags/arch/</loc>
-    <lastmod>2026-07-24T10:16:21+02:00</lastmod>
+    <loc>https://danielhacks.it/blog/20260802_ai-as-a-learning-tool/</loc>
+    <lastmod>2026-08-02T18:34:21+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/blog/</loc>
+    <lastmod>2026-08-02T18:34:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/log/</loc>
+    <lastmod>2026-08-02T18:34:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/</loc>
+    <lastmod>2026-08-02T18:34:21+02:00</lastmod>
+  </url><url>
+    <loc>https://danielhacks.it/tags/arch/</loc>
     <lastmod>2026-07-24T10:16:21+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/tags/hdl/</loc>
     <lastmod>2026-07-24T10:16:21+02:00</lastmod>
   </url><url>
-    <loc>https://danielhacks.it/tags/log/</loc>
-    <lastmod>2026-07-24T10:16:21+02:00</lastmod>
-  </url><url>
     <loc>https://danielhacks.it/blog/20260724_single_cycle_riscv_datapath/</loc>
-    <lastmod>2026-07-24T10:16:21+02:00</lastmod>
-  </url><url>
-    <loc>https://danielhacks.it/tags/</loc>
     <lastmod>2026-07-24T10:16:21+02:00</lastmod>
   </url><url>
     <loc>https://danielhacks.it/blog/20260722_why_i_started_digital_design/</loc>

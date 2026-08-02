@@ -6,8 +6,17 @@
     <description>Recent content in Log on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 24 Jul 2026 10:16:21 +0200</lastBuildDate>
+    <lastBuildDate>Sun, 02 Aug 2026 18:34:21 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/tags/log/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AI as a Learning Tool</title>
+      <link>https://danielhacks.it/blog/20260802_ai-as-a-learning-tool/</link>
+      <pubDate>Sun, 02 Aug 2026 18:34:21 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20260802_ai-as-a-learning-tool/</guid>
+      <description>&lt;h2 id=&#34;the-question-i-didnt-know-i-had&#34;&gt;The Question I Didn&amp;rsquo;t Know I Had&lt;/h2&gt;
+&lt;p&gt;I never fared well with the school system. Not because I lacked curiosity — if anything, I had too much of it. I always wanted the deep version of things, not the pass-the-exam version. The problem was I had no way to get there.&lt;/p&gt;
+&lt;p&gt;The traditional path for that kind of depth is a PhD: years under a mentor who steers you, who knows which question to ask before you even know you need to ask it. I didn&amp;rsquo;t take that path. Instead, for years, my way of chasing knowledge was the same as most people&amp;rsquo;s — open a browser, search, read, repeat.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Single Cycle RISCV32I Datapath</title>
       <link>https://danielhacks.it/blog/20260724_single_cycle_riscv_datapath/</link>
