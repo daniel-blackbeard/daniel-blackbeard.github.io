@@ -6,8 +6,16 @@
     <description>Recent content in Blog on Daniel Hacks It</description>
     <generator>Hugo -- 0.147.5</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 02 Aug 2026 18:34:21 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 19:00:00 +0200</lastBuildDate>
     <atom:link href="https://danielhacks.it/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pipelined RISCV32I: Closing Timing to 100MHz</title>
+      <link>https://danielhacks.it/blog/20260910_pipelined_riscv32i_100mhz/</link>
+      <pubDate>Thu, 10 Sep 2026 19:00:00 +0200</pubDate>
+      <guid>https://danielhacks.it/blog/20260910_pipelined_riscv32i_100mhz/</guid>
+      <description>&lt;h2 id=&#34;closing-a-loop&#34;&gt;Closing a loop&lt;/h2&gt;
+&lt;p&gt;The &lt;a href=&#34;https://danielhacks.it/blog/20260724_single_cycle_riscv_datapath/&#34;&gt;single-cycle RISCV32I post&lt;/a&gt; ended with a promise: &amp;ldquo;this single-cycle design became the baseline for the pipelined RISCV32I CPU I&amp;rsquo;m currently building&amp;hellip; that comparison is next up.&amp;rdquo; That comparison took longer than expected to actually write up — not because the work stalled, but because the pipeline got finished, timing got closed, and I moved on before circling back to put it into words. This is that write-up, reconstructed from the actual RTL and the real Vivado timing reports rather than from memory, because at this point the project genuinely isn&amp;rsquo;t fresh anymore. I&amp;rsquo;d rather tell it accurately from the evidence than paraphrase what I think I remember.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>AI as a Learning Tool</title>
       <link>https://danielhacks.it/blog/20260802_ai-as-a-learning-tool/</link>
