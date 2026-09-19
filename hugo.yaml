@@ -12,6 +12,9 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 
+taxonomies:
+  tag: tags
+
 minify:
   disableXML: true
   minifyOutput: true
@@ -36,6 +39,13 @@ menu:
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  schema:
+    publisherType: Person
+    sameAs:
+      - "https://www.linkedin.com/in/leonardo-herbas/"
+      - "https://www.instagram.com/daniel.blackbeard"
+      - "https://github.com/daniel-blackbeard"
+      - "https://buymeacoffee.com/daniel.blackbeard"
   title: Daniel Hacks It
   description: "Blog for my learning activities on general electronics"
   keywords: [Blog, Portfolio]
@@ -69,7 +79,7 @@ params:
     # favicon16x16: "<link / abs url>"
     # favicon32x32: "<link / abs url>"
     # apple_touch_icon: "<link / abs url>"
-    # safari_pinned_tab: "<link / abs url>"
+    safari_pinned_tab: "favicon.svg"
 
   label:
     text: "Daniel Hacks It"

@@ -1,8 +1,12 @@
 ---
 author: "Daniel Blackbeard"
-date: '2026-08-16T19:00:00+02:00'
-draft: true
+date: '2026-09-16T19:00:00+02:00'
+draft: false
 title: 'The Hang That Took a Week: Chasing a Ghost in the Instruction Cache'
+cover:
+  image: "images/hamgeek_board_ddr.jpg"
+  alt: "Picture of a HamGeek board, AD9361 visible in there"
+  relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags:
 - hdl
 - log
@@ -42,6 +46,6 @@ That configuration ran clean for over two hours of continuous use — dwarfing e
 
 I want to be honest about what this fix actually proves, because it's less than it might sound like. It identifies *where* the corruption was getting exposed — a repeated, uncached DDR instruction fetch — not the exact underlying physical defect. This board's Zynq is a reclaimed part, with its package markings and QR code deliberately sanded off. Genuine Xilinx silicon, confirmed via JTAG device ID, but of an unconfirmable and plausibly lower-than-assumed speed grade, running with no heatsink. My best theory is a timing margin issue that only bites on the specific access pattern of a tight, uncached fetch loop — but that's a theory, not a proven root cause, and I'm not going to dress it up as more certain than it is.
 
-What I can say for certain: the fix works, it's held for two-plus hours where nothing else held for ten minutes, and the reasoning behind why it works is sound even if the deepest "why" behind the underlying defect stays open. Sometimes that's where a debugging story actually ends, and I'd rather show that honestly than pretend to a certainty I don't have.
+What I can say for certain: the fix works (for now), it's held for two-plus hours where nothing else held for ten minutes, and the reasoning behind why it works is sound even if the deepest "why" behind the underlying defect stays open. Sometimes that's where a debugging story actually ends, and I'd rather show that honestly than pretend to a certainty I don't have.
 
 With that resolved, the next stretch of work was actually getting the AD9361's local oscillator chains running — starting with the chip's internal BBPLL, and ending at a wall I didn't expect to hit so early.
