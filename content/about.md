@@ -21,10 +21,10 @@ So basically, it is necessary for me, but with the hope that the quality is high
 Among my many dreams, there is this one of going off the grid (partially). So I'm looking for ways to have this small house in the mountains, some mini cows, mini donkeys, goats, chickens and Wi-Fi to keep doing what I love. This blog itself is a move towards that future, hence I see the point in putting a symbol of my end goal somewhere I won't lose sight of it.
 
 ## Publications 
-[1](https://ieeexplore.ieee.org/document/10117191) A 200Gb/s Low Power DSP-Based Optical Receiver and Transmitter with Integrated TIA and Laser Drivers
-
-[2](https://ieeexplore.ieee.org/document/10631522) A 5nm 60GS/s 7b 64-Way Time Interleaved Partial Loop Unrolled SAR ADC Achieving 34dB SNDR up to 32GHz
-
-[3](https://ieeexplore.ieee.org/document/10816650) A 5-nm 60-GS/s 7b 64-Way Time Interleaved Partial Loop Unrolled SAR ADC Achieving 35.2dB SNDR up to 32 GHz
-
-[4](https://ieeexplore.ieee.org/document/10906438) An Eight-Lane 800-Gb/s Transceiver for PAM-4 Optical Direct-Detection Applications in 5-nm FinFET Process
+1. [A 200Gb/s Low Power DSP-Based Optical Receiver and Transmitter with Integrated TIA and Laser Drivers](https://ieeexplore.ieee.org/document/10117191)
+2. [A 5nm 60GS/s 7b 64-Way Time Interleaved Partial Loop Unrolled SAR ADC Achieving 34dB SNDR up to 32GHz](https://ieeexplore.ieee.org/document/10631522)
+3. [A 5-nm 60-GS/s 7b 64-Way Time Interleaved Partial Loop Unrolled SAR ADC Achieving 35.2dB SNDR up to 32 GHz](https://ieeexplore.ieee.org/document/10816650)
+4. [An Eight-Lane 800-Gb/s Transceiver for PAM-4 Optical Direct-Detection Applications in 5-nm FinFET Process](https://ieeexplore.ieee.org/document/10906438)
+5. [A Monolithic 400Gbps Electro-Optical Retimer with Integrated TIA and Class-AB Silicon-Photonics/VCSEL Driver in 5nm FinFET](https://ieeexplore.ieee.org/document/11074826)
+6. [A 2-Channel 800Gb/s Transceiver for Coherent-Lite Applications with <300ns Latency in 5nm FinFET](https://ieeexplore.ieee.org/document/11409176)
+7. [A 800Gb/s Transceiver for PAM-4 Optical Direct-Detection Applications in 5nm FinFet Process](https://ieeexplore.ieee.org/document/10631549)

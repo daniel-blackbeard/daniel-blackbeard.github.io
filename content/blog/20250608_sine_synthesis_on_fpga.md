@@ -8,7 +8,7 @@ cover:
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl
-- i2c
+- i2s
 - log
 math: true
 ---

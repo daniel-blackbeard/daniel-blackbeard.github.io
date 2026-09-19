@@ -5,7 +5,7 @@ draft: false
 title: 'First Hardware Bring-Up: An Inherited PS7 and Two Bugs Simulation Could Never Catch'
 cover:
   image: "images/hamgeek_board.jpg"
-  alt: "Picture of some HDL code"
+  alt: "HamGeek Zynq board during hardware bring-up"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags:
 - hdl

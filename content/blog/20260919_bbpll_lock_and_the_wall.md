@@ -1,6 +1,6 @@
 ---
 author: "Daniel Blackbeard"
-date: '2026-08-23T19:00:00+02:00'
+date: '2026-09-19T19:00:00+02:00'
 draft: true
 title: "Locking the AD9361's BBPLL, and the Wall Right Behind It"
 tags:
