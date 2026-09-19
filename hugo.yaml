@@ -1,6 +1,6 @@
 baseURL: https://danielhacks.it/
 languageCode: en
-title: Daniel Hacks It
+title: "Daniel Hacks It | FPGA, RISC-V & Hardware Engineering"
 
 module:
   imports:
@@ -41,7 +41,7 @@ params:
   keywords: [Blog, Portfolio]
   author: Daniel Blackbeard
   # author: ["Me", "You"] # multiple authors
-  # images: ["<link or path of image for opengraph, twitter-cards>"]
+  images: ["images/morning_wood.jpeg"]
   DateFormat: "January 2, 2006"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
@@ -81,7 +81,7 @@ params:
     title: "Daniel Hacks It" # optional default will be site title
     subtitle: "A blog on tech"
     imageUrl: "/images/morning_wood.jpeg" # optional
-    imageTitle: "<title of image as alt>" # optional
+    imageTitle: "Daniel Blackbeard's Blog - My Experience with Analog & Digital Electronics" # optional
     imageWidth: 240 # custom size
     imageHeight: 240 # custom size
     buttons:
