@@ -50,6 +50,10 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Optimize Images for Web
+        run: |
+          mogrify -resize '1600x>' -quality 85 static/images/*.jpg static/images/*.jpeg 2>/dev/null || true
+          mogrify -resize '1600x>' static/images/*.png 2>/dev/null || true
       - name: Build with Hugo
         env:
           HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
@@ -58,6 +62,7 @@ jobs:
         run: |
           hugo \
             --gc \
+            --cleanDestinationDir \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"          
       - name: Upload artifact

@@ -3,7 +3,7 @@ author: "Daniel Blackbeard"
 date: '2025-05-27T16:43:31+02:00'
 title: 'What Is HDL? The explanation you did not request'
 cover:
-  image: "images/hdl.png"
+  image: "images/hdl.jpg"
   alt: "Picture of some HDL code"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
