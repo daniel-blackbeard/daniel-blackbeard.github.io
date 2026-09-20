@@ -1,5 +1,5 @@
 ---
-date: '2026-06-14T19:40:36+02:00'
+date: '2025-06-14T19:40:36+02:00'
 draft: false
 title: 'Delay Effect Implementation'
 author: "Daniel Blackbeard"
@@ -177,7 +177,7 @@ The MIG will process the request and will notify when data is ready to be fetche
 This isn't particularly complicated, to be honest — worth avoiding the AXI interface for such a simple application.
 
 ### Cross-Domain Clocks
-As an analog designer, the fact that the controller and host run on different clocks was kind of an obvious problem to be solved: at some point one clock will sample the flip-flops when the data isn't ready, resulting in what's defined as [metastability](https://en.wikipedia.org/wiki/Metastability_(electronics)).
+As an analog designer, the fact that the controller and host run on different clocks was kind of an obvious problem to be solved: at some point one clock will sample the flip-flops when the data isn't ready, resulting in what's defined as [metastability](https://en.wikipedia.org/wiki/Metastability_%28electronics%29).
 
 The trick to solving the problem? Just add another flip-flop. Basically, a metastable latch takes a few clock cycles to resolve (depending on the architecture), so the additional flip-flop gives the previous one time to resolve the metastability (which is an undefined state, not necessarily mid-range between zero and one). This is almost a stochastic process, and usually one FF is enough to avoid audible glitches, but if that weren't the case, a third one would reduce the probability of a bad state propagating to extremely low values. I've discovered this is something digital designers have to think about a lot. For me, it was expected.
 

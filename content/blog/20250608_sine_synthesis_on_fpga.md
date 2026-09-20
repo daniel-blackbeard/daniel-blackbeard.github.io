@@ -3,7 +3,7 @@ date: '2025-06-15T15:00:43+02:00'
 title: 'Sine Synthesis with FPGA'
 author: "Daniel Blackbeard"
 cover:
-  image: "images/sine-scope.jpg"
+  image: "images/sine_scope.jpg"
   alt: "Picture of a sine waveform"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
