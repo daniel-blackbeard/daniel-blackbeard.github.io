@@ -1,10 +1,11 @@
 ---
 date: '2025-06-15T15:00:43+02:00'
 title: 'Sine Synthesis with FPGA'
+description: "Generating clean audio sine waveforms on FPGA using a compact LUT with quarter-wave symmetry and linear interpolation to boost effective SNDR."
 author: "Daniel Blackbeard"
 cover:
   image: "images/sine_scope.jpg"
-  alt: "Picture of a sine waveform"
+  alt: "Synthesized sine waveform output displayed on an oscilloscope"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl

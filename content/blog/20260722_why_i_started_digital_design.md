@@ -2,9 +2,10 @@
 date: '2026-07-22T04:53:37+02:00'
 draft: false
 title: 'Why I Started Learning Digital Design (After 15 Years of Waiting)'
+description: "An analog IC designer reflects on diving into digital RTL and FPGA engineering after 15 years, and why building processors from scratch matters."
 cover:
   image: "images/riscv-pipeline-paper.jpg"
-  alt: "Picture of some HDL code"
+  alt: "RISC-V pipeline processor architecture design reference paper"
   relative: false
 tags: 
 - log

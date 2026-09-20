@@ -1,13 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 title: "Blog introduction"
+description: "An introduction to Daniel Hacks It: a technical log exploring FPGA design, digital audio, RISC-V processors, and analog electronics."
 date: "2025-05-25"
 cover:
   image: "images/arty_a7.jpg"
   alt: "Digilent Arty A7 board connected"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
-- misc
 - log
 ---
 

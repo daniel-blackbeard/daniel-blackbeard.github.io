@@ -1,15 +1,15 @@
 ---
 date: '2025-05-28T17:12:23+02:00'
 title: 'UART: the basics after you know the very basics'
+description: "Building a robust SystemVerilog UART transmitter and receiver for FPGA: baud rate generators, oversampling, and clean state machine design."
 author: "Daniel Blackbeard"
 cover:
   image: "images/ftdi.jpg"
-  alt: "Picture of the FTDI serial chip"
+  alt: "FTDI USB-to-UART serial interface chip on FPGA development board"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl
-- systemverilog
-- fpga
+- log
 ---
 
 ## Introduction

@@ -2,10 +2,11 @@
 date: '2026-03-15T11:12:58+01:00'
 draft: false
 title: 'Arty A7 Guitar Effect Chain - FIR Implementation'
+description: "Designing and synthesizing a pipelined FIR audio filter in SystemVerilog on FPGA: coefficient quantization, DSP48 usage, and timing closure."
 author: "Daniel Blackbeard"
 cover:
   image: "images/fir_resources_count.jpg"
-  alt: "Picture of a verilog snippet for a FIR"
+  alt: "Vivado synthesis resource utilization report for FPGA FIR filter"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl

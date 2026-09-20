@@ -3,9 +3,10 @@ author: "Daniel Blackbeard"
 date: '2026-07-24T10:16:21+02:00'
 draft: false
 title: 'Single Cycle RISCV32I Datapath'
+description: "Designing a single-cycle RV32I RISC-V processor in SystemVerilog: building the ALU, register file, instruction decoder, and datapath on FPGA."
 cover:
   image: "images/single_cycle_fpga.jpg"
-  alt: "Picture a scientific paper and an Arty A7"
+  alt: "Digilent Arty A7 FPGA board running single-cycle RISC-V core next to reference paper"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl
@@ -74,7 +75,7 @@ While not extensive as the real tests, it will stress many tricky instructions l
  
 Before getting into individual blocks, here's how they connect in the single-cycle datapath:
 
-{{< figure src="/images/riscv_single_cycle_block_diagram.png" caption="Block diagram of a single cycle RISCV without control unit" alt="Block diagram of a single cycle RISCV without control unitr" align="center">}}
+{{< figure src="/images/riscv_single_cycle_block_diagram.png" caption="Block diagram of a single cycle RISCV without control unit" alt="Block diagram of a single cycle RISC-V datapath without control unit" align="center">}}
 
  
 At a glance: the PC drives instruction fetch, the control unit decodes the instruction into every downstream select signal, the register file and immediate decoder feed the ALU, and the ALU's result branches out to either data memory (loads/stores) or back into the register write-back mux — all within a single clock cycle, which is exactly what makes this a *single-cycle* design: no pipeline registers, no stalls, just one long combinational path from fetch to write-back on every clock edge.

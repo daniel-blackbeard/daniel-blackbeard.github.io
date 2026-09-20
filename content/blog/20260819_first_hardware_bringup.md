@@ -3,6 +3,7 @@ author: "Daniel Blackbeard"
 date: '2026-08-19T19:00:00+02:00'
 draft: false
 title: 'First Hardware Bring-Up: An Inherited PS7 and Two Bugs Simulation Could Never Catch'
+description: "Bringing up custom bare-metal Zynq-7020 hardware with an AD9361 RF transceiver: Vivado batch mode, PS7 configuration, and two subtle silicon bugs."
 cover:
   image: "images/hamgeek_board.jpg"
   alt: "HamGeek Zynq board during hardware bring-up"

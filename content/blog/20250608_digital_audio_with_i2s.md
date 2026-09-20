@@ -2,9 +2,10 @@
 author: "Daniel Blackbeard"
 date: '2025-06-08T14:12:26+02:00'
 title: 'Digital audio with I2S'
+description: "Implementing the I2S protocol in SystemVerilog to drive a UDA1334A DAC module on FPGA, generating 24-bit stereo digital audio at 48kHz."
 cover:
   image: "images/i2s.jpg"
-  alt: "Picture of some HDL code"
+  alt: "Adafruit I2S stereo DAC breakout board based on UDA1334A"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl

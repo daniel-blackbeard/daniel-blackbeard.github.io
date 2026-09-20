@@ -30,9 +30,6 @@ menu:
     - name: Blog
       pageRef: /blog
       weight: 2
-    - name: Resources
-      pageRef: /resources
-      weight: 3
     - name: About
       pageRef: /about
       weight: 4
@@ -97,8 +94,8 @@ params:
     buttons:
       - name: Blog
         url: "/blog"
-      - name: Resources
-        url: "/resources"
+      - name: About
+        url: "/about"
 
   socialIcons:
     - name: linkedin

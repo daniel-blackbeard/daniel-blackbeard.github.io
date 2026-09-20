@@ -2,14 +2,14 @@
 date: '2025-06-14T19:40:36+02:00'
 draft: false
 title: 'Delay Effect Implementation'
+description: "Implementing an audio delay guitar effect on FPGA using Arty A7 onboard DDR3 RAM, a circular buffer, and clock-domain crossing synchronizers."
 author: "Daniel Blackbeard"
 cover:
   image: "images/arty_with_afe.jpg"
-  alt: "Picture of the analog front end"
+  alt: "Digilent Arty A7 FPGA connected to analog front-end guitar preamp"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl
-- ddr
 - log
 math: true
 ---

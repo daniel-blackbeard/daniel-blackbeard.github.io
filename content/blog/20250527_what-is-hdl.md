@@ -2,9 +2,10 @@
 author: "Daniel Blackbeard"
 date: '2025-05-27T16:43:31+02:00'
 title: 'What Is HDL? The explanation you did not request'
+description: "A pragmatic guide explaining HDL to programmers: why Verilog is not C, wires vs. regs, avoiding latches, and understanding hardware concurrency."
 cover:
   image: "images/hdl.jpg"
-  alt: "Picture of some HDL code"
+  alt: "SystemVerilog hardware description language code snippet"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl

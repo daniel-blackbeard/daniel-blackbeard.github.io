@@ -2,10 +2,11 @@
 date: '2026-04-07T09:39:21+02:00'
 draft: false
 title: 'Analog preamplifier for the XADC'
+description: "Designing a discrete analog preamplifier front-end in KiCad for the Arty A7 XADC: impedance matching, PSRR, and single-ended to differential conversion."
 author: "Daniel Blackbeard"
 cover:
   image: "images/preamp_pcb.jpg"
-  alt: "Picture of a PCB work for a preamplifier"
+  alt: "Custom analog preamplifier PCB layout designed in KiCad for XADC"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - analog

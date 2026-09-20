@@ -1,14 +1,14 @@
 ---
 date: '2025-12-27T17:00:43+02:00'
 title: 'Arty A7 Guitar Effect Chain - Introduction'
+description: "Architecture of an FPGA guitar effect chain: configuring the Artix-7 XADC via DRP, matching clock domains, and 16x oversampling for lower noise."
 author: "Daniel Blackbeard"
 cover:
   image: "images/effect_chain.jpg"
-  alt: "Picture of a guitar effect chain"
+  alt: "Guitar audio effect pedal chain hardware setup"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - hdl
-- xadc
 - analog
 - log
 math: true
@@ -23,7 +23,7 @@ So, before starting on the actual implementation of this effect/filter chain in 
 ## Effect Chain Architecture
 
 Let's set some constraints for the design of this architecture<cite>[^1]</cite>:
-1. I want a 48KHz sample rate for the audio, to use my already-designed [I2S interface](../../blog/20250608_digital_audio_with_i2s/)
+1. I want a 48KHz sample rate for the audio, to use my already-designed [I2S interface]({{< ref "blog/20250608_digital_audio_with_i2s.md" >}})
 2. I want the maximum sample rate possible from the XADC (per the documentation, 12-bit at 1MSPS)
 3. I want to avoid clock cross-domains, hence the same clock will have to drive the ADC and the I2S interface
 

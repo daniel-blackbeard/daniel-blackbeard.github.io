@@ -1,6 +1,10 @@
 ---
 date: '2025-05-26'
 title: 'Resources'
+draft: true
+robotsNoIndex: true
+_build:
+  list: never
 ---
 
 Here is an organized collection of the resources I leverage when doing some kind of research. Google is obvious, so let's skip it.

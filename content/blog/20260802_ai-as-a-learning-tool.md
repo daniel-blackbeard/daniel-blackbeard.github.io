@@ -3,9 +3,10 @@ author: "Daniel Blackbeard"
 date: '2026-08-02T18:34:21+02:00'
 draft: false
 title: 'AI as a Learning Tool'
+description: "How to leverage AI as an effective engineering sparring partner for FPGA and digital design without letting hallucinated code derail hardware bring-up."
 cover:
   image: "images/ai_teaching.jpg"
-  alt: "AI doing some teaching here"
+  alt: "Conceptual illustration of AI-assisted engineering and hardware design"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags: 
 - log

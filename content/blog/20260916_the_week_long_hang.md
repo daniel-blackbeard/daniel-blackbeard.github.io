@@ -3,9 +3,10 @@ author: "Daniel Blackbeard"
 date: '2026-09-16T19:00:00+02:00'
 draft: false
 title: 'The Hang That Took a Week: Chasing a Ghost in the Instruction Cache'
+description: "Chasing an intermittent CPU lockup on bare-metal Zynq-7020 hardware: instruction cache invalidation bugs, AXI transactions, and memory ordering."
 cover:
   image: "images/hamgeek_board_ddr.jpg"
-  alt: "Picture of a HamGeek board, AD9361 visible in there"
+  alt: "HamGeek Zynq-7020 SDR development board with AD9361 transceiver and DDR3"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags:
 - hdl

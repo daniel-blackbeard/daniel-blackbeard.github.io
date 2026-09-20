@@ -3,9 +3,10 @@ author: "Daniel Blackbeard"
 date: '2026-09-10T19:00:00+02:00'
 draft: false
 title: 'Pipelined RISCV32I: Closing Timing to 100MHz'
+description: "Building a 5-stage pipelined RV32I RISC-V processor in SystemVerilog: hazard detection, data forwarding, branch penalty, and closing timing to 100MHz."
 cover:
   image: "images/riscv_arty.jpg"
-  alt: "Picture of some HDL code"
+  alt: "Digilent Arty A7 FPGA board running pipelined RISCV32I core at 100MHz"
   relative: false # To use relative path for cover image, used in hugo Page-bundles
 tags:
 - hdl
