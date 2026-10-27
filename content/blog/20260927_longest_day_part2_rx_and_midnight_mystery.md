@@ -1,6 +1,6 @@
 ---
 author: "Daniel Blackbeard"
-date: '2026-09-27T19:00:00+02:00'
+date: '2026-09-27T19:01:00+02:00'
 draft: true
 title: 'The Longest Day, Part 2: RX, a UDP Console, and a Mystery at Midnight'
 tags:
@@ -10,27 +10,15 @@ tags:
 
 ## Picking up where TX left off
 
-The first half of this day — [covered last week]({{< ref "blog/20260920_longest_day_part1_tx_works.md" >}}) — ended with TX finally solid: a rebuilt, properly-sized ring, a real architecture for sharing it between a command console and future sample streaming, and a decade-old `.bss` zero-init bug finally caught. The second half is where RX came together cleanly, a full UDP console got built and delegated end to end, and the project hit its first genuinely open-ended mystery — one that didn't stay open by the time the sun came up.
+The first half of this day — [covered last week]({{< ref "blog/20260927_longest_day_part1_tx_works.md" >}}) — ended with TX finally solid: a rebuilt, properly-sized ring, a real architecture for sharing it between a command console and future sample streaming, and a decade-old `.bss` zero-init bug finally caught. The second half is where RX came together cleanly, a full UDP console got built end to end, and the project hit its first genuinely open-ended mystery — one that didn't stay open by the time the sun came up.
 
 ## RX works, and nobody had to ping anything
 
-RX ring init went through several rounds of review on my own code: a wrap bit in the wrong position, a buffer-stride rounding bug, and an operator-precedence bug inside that same rounding formula — `+` binds tighter than `<<` in C, so an expression I'd written to compute a padded stride wasn't parsing the way I'd assumed — before settling on a clean, fixed 256-byte stride. Final review caught two real bugs before hardware ever saw the code: `RXEN` never set at all in an earlier draft, meaning the ring could be perfectly initialized and nothing would ever land in it; and, after I added `RXEN` myself in the right place, a missing memory barrier between finishing the ring/queue-base writes and enabling `RXEN` — the same DDR write-ordering hazard the TX ring had already taught this project once, just recurring at setup time instead of per-commit, since RX has no software-side kick to hang a barrier off. That one I explicitly delegated:
-
-> "The dsb is not something I ever handled, on that I will trust you."
+RX ring init went through several rounds of review on my own code: a wrap bit in the wrong position, a buffer-stride rounding bug, and an operator-precedence bug inside that same rounding formula — `+` binds tighter than `<<` in C, so an expression I'd written to compute a padded stride wasn't parsing the way I'd assumed — before settling on a clean, fixed 256-byte stride. Final review caught two real bugs before hardware ever saw the code: `RXEN` never set at all in an earlier draft, meaning the ring could be perfectly initialized and nothing would ever land in it; and, after I added `RXEN` myself in the right place, a missing memory barrier between finishing the ring/queue-base writes and enabling `RXEN` — the same DDR write-ordering hazard the TX ring had already taught this project once, just recurring at setup time instead of per-commit, since RX has no software-side kick to hang a barrier off. 
 
 The milestone landed cleanly on the very first real test: ambient LAN broadcast traffic showed up in the ring within seconds of boot, with no PC-side trigger needed at all. The status register showed a frame received, the first descriptor's ownership bit flipped exactly as the bit layout predicted, and a second frame landed in the second descriptor — proving the ring genuinely walks sequentially rather than being a one-descriptor fluke. Reading the buffer bytes by hand and decoding a real subnet-broadcast UDP packet — destination MAC, source MAC, EtherType, a genuine IPv4/UDP header — closed the milestone out exactly as planned.
 
-The exact same "JTAG init fails" symptom from earlier in the week came back here too, and turned out once again to be the bitstream never having been reprogrammed after a power cycle. The difference this time: I was asked to physically check the board before anyone guessed at a cause, and my own diagnosis was refreshingly blunt:
-
-> "Nothing unusual, I just power cycled. This is purely sw issue"
-
-The first time this gotcha showed up it read as a one-off war story. The second time made it obvious it's a standing property of this board's JTAG-only boot flow, not a fluke — worth calling out explicitly as the kind of thing that isn't a bug in any one session, it's a fact about the rig.
-
-## Full delegation, and a working UDP console
-
-With RX proven, I handed off the rest of the networking work outright:
-
-> "At this point I will just delegate to you. Now I have a decent understanding of GEM and the RTL operation, so the rest is just mechanically adding functionality we kind of already have (uart)."
+## A working UDP console
 
 Before any code got written, four genuinely open design questions got settled up front: the board's static IP — `192.168.3.50`, picked to match the subnet already seen in real captured traffic — the UDP command port (`5555`), whether to build a real ARP responder rather than lean on a static PC-side ARP entry (I chose to build the real thing), and how replies to a multi-command request should be framed — one batched UDP reply mirroring the request's own array shape, rather than one frame per command.
 
