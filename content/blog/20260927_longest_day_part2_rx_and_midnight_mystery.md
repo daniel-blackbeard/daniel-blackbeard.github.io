@@ -10,7 +10,7 @@ tags:
 
 ## Picking up where TX left off
 
-The first half of this day — [covered last week]({{< ref "blog/20260927_longest_day_part1_tx_works.md" >}}) — ended with TX finally solid: a rebuilt, properly-sized ring, a real architecture for sharing it between a command console and future sample streaming, and a decade-old `.bss` zero-init bug finally caught. The second half is where RX came together cleanly, a full UDP console got built end to end, and the project hit its first genuinely open-ended mystery — one that didn't stay open by the time the sun came up.
+The first half of this day — [covered last week]({{< ref "blog/20260927_longest_day_part1_tx_works.md" >}}) — ended with TX finally solid: a rebuilt, properly-sized ring, a real architecture for sharing it between a command console and future sample streaming, and a `.bss` zero-init bug caught. The second half is where RX came together cleanly, a full UDP console got built end to end, and the project hit its first genuinely open-ended mystery — one that didn't stay open by the time the sun came up.
 
 ## RX works, and nobody had to ping anything
 
@@ -42,18 +42,12 @@ Rather than a fix, what came out of this stretch is genuine infrastructure I sti
 
 The day closed, twice, with the same honest question asked from opposite directions — first handing the investigation over outright, then pulling back to check what other tools were even available:
 
-> "I will still let this debug session up to you, but that being said, what other options do we have other than jtag?"
-
-## Handed off for the night, and the mystery actually breaks
-
-Past midnight, I handed it off for real:
-
-> "I didn't saw the notification, but this is what I wanted to see. I'm not familiar with debugging race conditions, but now we know there is one that happens 'right after a branch to a call'. Here I will trust you, it's late hence my next reply will be when I awake, you keep processing this last evidence and apply better techniques."
+## The mystery actually breaks
 
 What followed was the payoff to the whole day. A "trace every function call" instrumentation pass had already produced the most important clue purely as a side effect: tracing slowed the loop down enough that the crash stopped reproducing for a clean three-minute window — real evidence of timing sensitivity, not a fixed bad line. But UART tracing turned out to be exactly the wrong instrument for it — each traced call could block tens of microseconds waiting for transmit space, adding enough latency to mask the very problem it was built to catch. The fix was to redesign the trace mechanism entirely: instead of streaming bytes live, each call writes one byte into a plain DDR ring buffer, a few non-blocking memory accesses instead of a blocking UART send, and the self-reporting fault handler got extended to dump that entire buffer automatically as part of its one-shot post-crash report. The overhead that mattered moved from "every loop iteration, forever" to "once, after the fact" — the same principle as the fault handler itself, one level up.
 
 With that running on real hardware, the actual root cause surfaced within one capture. The true pre-crash registers held a completely valid frame pointer and a completely valid descriptor base address, ruling out corrupted data outright — while the GEM hardware's own status register showed the "buffer not available" flag set, with all eight RX descriptors simultaneously marked owned by software. The RX ring had run completely out of buffers. A direct follow-up made the mechanism unambiguous: a fresh board, deliberately driven into that same fully-exhausted state by a burst of forced ARP broadcasts, sat there for over a hundred seconds — every descriptor full — running perfectly healthy the entire time, no crash at all. Exhaustion alone wasn't the bug. It was a confirmed precondition for a rarer event riding on top of it, almost certainly a bus-arbitration hazard from the hardware's own handling of an incoming frame with nowhere to put it, colliding with whatever the CPU's instruction fetch happened to be doing at that exact moment — which is exactly why the fault type kept changing between occurrences: different collision timing corrupts a different bit pattern each time.
 
-Root cause, in one sentence: the RX service loop only ever drained one frame per pass, real traffic can arrive faster than that for long enough to exhaust an 8-entry ring, and GEM's behavior once genuinely starved has a real chance of corrupting whatever the CPU is doing at that instant. Not a mystery defect needing a workaround — an ordinary, fixable gap in drain rate, plus a hardware condition the software had never once acknowledged or cleared. I left the actual fix unwritten on purpose: real driver logic, the same kind I'd written every other piece of this Ethernet stack myself, waiting for me to wake up to a fully solved mystery and a clear next step instead of an open one.
+Root cause, in one sentence: the RX service loop only ever drained one frame per pass, real traffic can arrive faster than that for long enough to exhaust an 8-entry ring, and GEM's behavior once genuinely starved has a real chance of corrupting whatever the CPU is doing at that instant. Not a mystery defect needing a workaround — an ordinary, fixable gap in drain rate, plus a hardware condition the software had never once acknowledged or cleared. 
 
-It's a genuinely rare thing to be able to show honestly: going to sleep mid-investigation, explicitly on trust, and waking up to a real answer instead of either silence or a fabricated one. It's also, as the next couple of posts will show, not quite the end of this particular story — the ring fix held, but the underlying crash signature would come back twice more before its actual cause was found.
+As the next couple of posts will show, not quite the end of this particular story — the ring fix held, but the underlying crash signature would come back twice more before its actual cause was found.

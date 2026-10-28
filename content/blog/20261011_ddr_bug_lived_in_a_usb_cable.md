@@ -20,15 +20,11 @@ I picked this up mid-investigation, on what I'd already been counting as the fif
 
 The frequency change, plus restoring a separately-derived board-measured DQS delay correction, got applied live through Vivado's own IP customization API rather than by hand-editing the underlying project JSON — the safer path once I'd confirmed this particular property wouldn't hit a range-validator bug that had forced hand-edits on an earlier revert attempt. A clean hour-long soak came back with zero hangs. Then I asked for something bigger overnight:
 
-> "After this one, prepare a 8 hours soak. When I awake I will check the results. Good night."
-
 The real picture only showed up at that scale: 12 hangs across roughly nine hours, no clean periodicity, gaps as short as two minutes and others approaching fifty. The frequency change had clearly moved the failure rate. It hadn't fixed anything.
 
 ## An eye scan that came back clean everywhere
 
-Mid-soak, I proposed a direct hardware measurement to settle whether the delay correction had actually pushed the DDR PHY's calibration into an extreme, over-corrected state: reading the PHY's own per-lane delay-line registers directly over JTAG, cross-checked against a maximum tap value supplied by a second Claude instance with direct datasheet access.
-
-> "The idea is that in any case we got delay wrong and we should trust the vendor. After this soak we will calibrate this shit ourselves"
+Mid-soak, I proposed a direct hardware measurement to settle whether the delay correction had actually pushed the DDR PHY's calibration into an extreme, over-corrected state: reading the PHY's own per-lane delay-line registers directly over JTAG, cross-checked against a maximum tap value.
 
 The readback invalidated the premise before any calibration project could even start: every lane's tap value sat within single digits of zero, nowhere near the register's ceiling. The fix's effect on the delay lines was real, but tiny — not the wild over-correction the hypothesis needed. That motivated the cleanest instrument of the investigation: a from-scratch eye-scan tool, stepping every possible tap value, coarse then fine, on both the read-delay and write-delay registers for the two affected byte lanes, verifying a small memory region at each point. Every single tap across the entire range passed. The delay-tap value was conclusively not the failure boundary — a real, well-instrumented negative result, not a shrug. The tool itself needed one round of debugging first, worth a small aside: a Tcl gotcha where `expr {0x$var & $mask}` fails because the expression compiler tries to lex the bare `0x` as a numeric literal before the variable ever gets substituted in — fixed by switching to `scan` instead. Even the diagnostic instrument needed its own bring-up before it could be trusted.
 
@@ -60,7 +56,7 @@ Investigating how to load firmware without JTAG — since the whole existing dev
 
 The session closed on genuine cautious optimism rather than a declared victory:
 
-> "Later on if this works we will have to revert a lot of things. Hopefully this is the solution. Wish us luck and see you later from remote."
+> "Later on if this works we will have to revert a lot of things. Hopefully this is the solution."
 
 I'm resisting the temptation to write this as a clean "and then it was fixed" ending, because that's not how it actually closed — my own framing at the time was explicitly conditional, and that's more representative of real hardware debugging than a tidy bow. It's also worth being upfront that solving this meant walking back several days of DDR configuration changes — frequency, delay correction — that addressed a problem which, in the end, wasn't really there. A real, slightly deflating, entirely typical cost of chasing a bug down the wrong layer for a while before finding the right one.
 
