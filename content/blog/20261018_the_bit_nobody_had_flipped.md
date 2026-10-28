@@ -1,8 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 date: '2026-10-18T19:00:00+02:00'
-draft: true
+draft: false
 title: 'The Bit Nobody Had Ever Flipped'
+description: "Chasing a recurring Zynq bare-metal crash down to a never-enabled data cache bit, and why the earlier clock jitter diagnosis was a false flag."
+cover:
+  image: "images/hamgeek_deploy.jpg"
+  alt: "HamGeek Zynq-7020 SDR board ready for deploy"
+  relative: false
 tags:
 - hdl
 - log
@@ -10,17 +15,19 @@ tags:
 
 ## The crash comes back a third time
 
-With the DDR/cable mystery closed and the UDP console resumed, a pasted external code review — sixteen findings, ranked — kicked off what looked like routine hardening: a missing memory barrier in the RX release path, missing frame-length guards, missing alignment checks on the console's register-write path. All three got implemented, verified compiling, and soak-tested in turn. None of them changed anything. The exact same crash, same address, same registers, kept reproducing on the same 60-to-120-second timescale regardless of which finding was applied.
+With [the DDR/cable mystery]({{< ref "blog/20261011_ddr_bug_lived_in_a_usb_cable.md" >}}) closed and the UDP console resumed, a pasted external code review — sixteen findings, ranked — kicked off what looked like routine hardening: a missing memory barrier in the RX release path, missing frame-length guards, missing alignment checks on the console's register-write path. All three got implemented, verified compiling, and soak-tested in turn. None of them changed anything. The exact same crash, same address, same registers, kept reproducing on the same 60-to-120-second timescale regardless of which finding was applied.
 
 ## A false all-clear, caught by insisting on a second data point
 
 The recurring signature — program counter frozen inside the fault handler's own UART-dump busy-loop, link register landing on the aligned base address of the program's stack region — coincided suspiciously with something every single test shared: a tight JTAG polling loop running alongside it. A single 5-minute run with zero JTAG contact came back clean, which read, briefly, like confirmation that repeated debug halting — not the firmware — had been corrupting state the whole investigation. That conclusion didn't survive a second sample: a longer JTAG-free run, checked through a passive UART listener instead of any halt at all, crashed at 4.5 minutes — faster than the "clean" run that had seemed to prove the opposite. The retraction was immediate and unhedged: "I need to retract my earlier conclusion... That earlier clean result was just a lucky sample, not a fix — I overclaimed on one data point."
 
-It's the exact same trap as the "40-plus-minute clean run" that got reframed as an outlier during the jitter arc, recurring a session later — except this time it got caught in one exchange instead of costing a full day. Worth noticing on its own: this project actually learned the lesson, rather than just having it happen once.
+It's the exact same trap as the "40-plus-minute clean run" that got reframed as an outlier during [the jitter arc]({{< ref "blog/20261004_clock_jitter_or_was_it.md" >}}), recurring a session later — except this time it got caught in one exchange instead of costing a full day. Worth noticing on its own: this project actually learned the lesson, rather than just having it happen once.
 
 ## "My bisection always finds answers faster"
 
 Handed a wrong theory and a stalled investigation, I pulled things back to method rather than more hypotheses:
+
+> "listen, we have been here before, if I let you assemble a prejudice we start wasting days chasing theories. My bisection always finds answers faster. So let's start removing functionality."
 
 What followed was the same "remove things until nothing is left to remove" discipline as before, run faster, on a different bug: strip the UDP command dispatch out of the RX path — still crashed — strip ARP too, down to a bare poll/release drain touching no frame content at all — still crashed, faster — bump the RX ring from 8 to 512 entries on the theory that wrap frequency mattered — no change, ruled out — strip the RX poll function itself to an unconditional null return, never touching a descriptor — still crashed, in 15 seconds — disable receive entirely, so the hardware never receives a single frame — still crashed, in 40 seconds — empty the main loop down to a bare infinite loop with zero function calls after boot. That one came back clean for a full 10 minutes, the first clean result of the whole arc, isolating the cause to the act of repeatedly *calling functions*, independent of Ethernet, the AD9361, or anything else in the application.
 
@@ -28,11 +35,11 @@ Reading the crash dump correctly took one more piece of understanding: the fault
 
 ## D-cache, and a trap hiding inside the fix itself
 
-The stack-versus-on-chip-memory distinction pointed at one specific, checkable difference: `startup.S` had enabled the instruction cache since the very first hang investigation, back near the start of this project, but had never enabled the data cache, project-wide, since the first line of assembly this project ever wrote. Every stack push and pop on the DDR-resident stack had always been an uncached, full-latency round trip to external memory. Enabling the data cache on the fastest bisected reproducer — a build crashing 100% of the time within 15 to 40 seconds — ran clean for 30 minutes straight. A striking result, and I treated it with exactly the suspicion the JTAG-polling false alarm a few sections earlier had earned:
+The stack-versus-on-chip-memory distinction pointed at one specific, checkable difference: `startup.S` had enabled the instruction cache since [the very first hang investigation]({{< ref "blog/20260916_the_week_long_hang.md" >}}), back near the start of this project, but had never set the data cache enable bit (`SCTLR.C`, in the ARM system control register), project-wide, since the first line of assembly this project ever wrote. Every stack push and pop on the DDR-resident stack had always been an uncached, full-latency round trip to external memory. Enabling the data cache on the fastest bisected reproducer — a build crashing 100% of the time within 15 to 40 seconds — ran clean for 30 minutes straight. A striking result, and I treated it with exactly the suspicion the JTAG-polling false alarm a few sections earlier had earned:
 
 > "yeah, but before that, remove D-cache again and soak for 30min total, restoring the test if a crash is detected. Count the number of crashes to understand if this is a coincidence or statistical evidence."
 
-That comparison immediately surfaced a second, unrelated methodology bug: a JTAG warm reset doesn't reliably restore ARM coprocessor state to its true power-on default, so simply reverting the source and reloading wasn't actually guaranteeing the data cache was off. It produced two different new crash signatures across successive attempts, neither matching the original bug, before this was understood. The real fix wasn't a workaround, it was a correctness bug in the test rig itself: `startup.S` needed to explicitly clear the cache-enable bit before setting anything else, rather than assuming a known starting state — the same "don't trust inherited hardware state" lesson the cable arc had already taught about JTAG resets a week earlier, now recurring for a coprocessor register instead of a whole board.
+That comparison immediately surfaced a second, unrelated methodology bug: a JTAG warm reset doesn't reliably restore ARM coprocessor state to its true power-on default, so simply reverting the source and reloading wasn't actually guaranteeing the data cache was off. It produced two different new crash signatures across successive attempts, neither matching the original bug, before this was understood. The real fix wasn't a workaround, it was a correctness bug in the test rig itself: `startup.S` needed to explicitly clear the cache-enable bit before setting anything else, rather than assuming a known starting state — the same "don't trust inherited hardware state" lesson [the cable arc]({{< ref "blog/20261011_ddr_bug_lived_in_a_usb_cable.md" >}}) had already taught about JTAG resets a week earlier, now recurring for a coprocessor register instead of a whole board.
 
 Once the bit was forced deterministic in both directions, the comparison was completely clean: D-cache off crashed on every single boot, byte-identical registers, within one to two seconds, 679 times in a row with zero exceptions. D-cache on ran the same firmware, the same reload path, the same real network traffic, for 30 straight minutes without a single failure. Restoring full application functionality on top of the fix — real RX polling, the ARP responder, the UDP command console, the original 8-entry ring — and soaking that for another clean 30 minutes closed the arc out on the actual target configuration, not a stripped-down stub.
 
