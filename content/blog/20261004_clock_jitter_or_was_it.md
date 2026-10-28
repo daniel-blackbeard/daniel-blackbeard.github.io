@@ -1,8 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 date: '2026-10-04T19:00:00+02:00'
-draft: true
+draft: false
 title: 'Clock Jitter, or Was It: Three Days Chasing a Ghost in the Ethernet Stack'
+description: "Three days chasing a rare Zynq crash under Ethernet RX load: bisection, survival statistics, a self-checking return address and a clock jitter diagnosis."
+cover:
+  image: "images/hamgeek_board.jpg"
+  alt: "HamGeek Zynq-7020 SDR board"
+  relative: false
 tags:
 - hdl
 - log
@@ -10,7 +15,7 @@ tags:
 
 ## Not actually over
 
-The RX ring-exhaustion bug from the midnight mystery [in the last two posts]({{< ref "blog/20260927_longest_day_part2_rx_and_midnight_mystery.md" >}}) was real, and the fix was real: drain every ready frame per pass instead of one, and explicitly acknowledge the hardware's "buffer not available" condition. On top of that, my own code review turned up three more independently well-motivated hardening fixes: a UDP command preamble/magic-number guard, since any stray packet matching the destination IP and port alone could previously have its payload blindly executed as register commands; SOF/EOF-based fragment rejection in the RX poll path; and a real 1536-byte Ethernet-frame RX buffer stride, making multi-descriptor RX structurally impossible. All three shipped.
+The RX ring-exhaustion bug from the midnight mystery in the last two posts ([part 1]({{< ref "blog/20260927_longest_day_part1_tx_works.md" >}}), [part 2]({{< ref "blog/20260927_longest_day_part2_rx_and_midnight_mystery.md" >}})) was real, and the fix was real: drain every ready frame per pass instead of one, and explicitly acknowledge the hardware's "buffer not available" condition. On top of that, my own code review turned up three more independently well-motivated hardening fixes: a UDP command preamble/magic-number guard, since any stray packet matching the destination IP and port alone could previously have its payload blindly executed as register commands; SOF/EOF-based fragment rejection in the RX poll path; and a real 1536-byte Ethernet-frame RX buffer stride, making multi-descriptor RX structurally impossible. All three shipped.
 
 The crash did not go away.
 

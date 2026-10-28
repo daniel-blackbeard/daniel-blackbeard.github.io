@@ -1,8 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 date: '2026-09-27T19:00:00+02:00'
-draft: true
+draft: false
 title: 'The Longest Day, Part 1: TX Finally Works'
+description: "Debugging Zynq GEM Ethernet TX on bare metal: a stuck TXGO bit, duplicate packets from a one-entry ring, a volatile bitstream and a missing .bss clear."
+cover:
+  image: "images/tx_connected.jpg"
+  alt: "HamGeek Zynq-7020 SDR board transmitting over ethernet"
+  relative: false
 tags:
 - hdl
 - log
@@ -14,7 +19,7 @@ What follows spans one sitting, and I'm splitting it into two posts because ther
 
 ## Motivating factor that lead to a lot of complications
 
-At some point I will want to do something with samples coming out from AD9361. But this device has few GPIO and are hidded behind a fan (that I never bothered to 3d-print new and better). I could use something similar to what I build for the guitar effect months ago with just a load of RTL, but it was just impossible to wire in short time. So the solution was simply sending samples from AD9361 to PL, from PL to PS via AXI DMA, then setting a ring descriptor to send the samples to a PC where I will wire it to the audio card. So we needed to build a TX ring descriptor for this and configure the GEM. That sounds easy...
+At some point I will want to do something with samples coming out from [AD9361]({{< ref "blog/20260921_the_day_the_rx_synth_locked.md" >}}). But this device has few GPIO and are hidded behind a fan (that I never bothered to 3d-print new and better). I could use something similar to what I build for the [guitar effect]({{< ref "blog/20251227_guitar_effect_chain_intro.md" >}}) months ago with just a load of RTL, but it was just impossible to wire in short time. So the solution was simply sending samples from AD9361 to PL, from PL to PS via AXI DMA, then setting a ring descriptor to send the samples to a PC where I will wire it to the audio card. So we needed to build a TX ring descriptor for this and configure the GEM. That sounds easy...
 
 ## Six rounds of elimination of a bug
 
@@ -56,4 +61,4 @@ Testing the new ring produced an immediate, different kind of failure: a genuine
 
 It's the most foundational bug of the whole session — something every C programmer assumes without thinking about it — sitting there invisible since the project's first commit, only surfaced by a piece of entirely unrelated new code. A real illustration of coverage as a property of a codebase's actual history, not just its test suite.
 
-With TX finally solid, the RX side came together fast, right up until it very much didn't. That's the second half of this day, next.
+With TX finally solid, the RX side came together fast, right up until it very much didn't. That's [the second half of this day]({{< ref "blog/20260927_longest_day_part2_rx_and_midnight_mystery.md" >}}), next.

@@ -1,8 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 date: '2026-09-27T19:01:00+02:00'
-draft: true
+draft: false
 title: 'The Longest Day, Part 2: RX, a UDP Console, and a Mystery at Midnight'
+description: "Bringing up Zynq GEM RX and a UDP/ARP console on bare metal, then tracing a CPU crash to RX ring exhaustion with a JTAG-readable fault handler."
+cover:
+  image: "images/hidden_gpio.jpg"
+  alt: "HamGeek Zynq-7020 SDR board with a blocked GPIO"
+  relative: false
 tags:
 - hdl
 - log
@@ -50,4 +55,4 @@ With that running on real hardware, the actual root cause surfaced within one ca
 
 Root cause, in one sentence: the RX service loop only ever drained one frame per pass, real traffic can arrive faster than that for long enough to exhaust an 8-entry ring, and GEM's behavior once genuinely starved has a real chance of corrupting whatever the CPU is doing at that instant. Not a mystery defect needing a workaround — an ordinary, fixable gap in drain rate, plus a hardware condition the software had never once acknowledged or cleared. 
 
-As the next couple of posts will show, not quite the end of this particular story — the ring fix held, but the underlying crash signature would come back twice more before its actual cause was found.
+As [the next couple of posts]({{< ref "blog/20261004_clock_jitter_or_was_it.md" >}}) will show, not quite the end of this particular story — the ring fix held, but the underlying crash signature would come back twice more before its actual cause was found.

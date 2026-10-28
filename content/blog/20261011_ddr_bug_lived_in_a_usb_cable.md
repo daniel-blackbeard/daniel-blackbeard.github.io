@@ -1,8 +1,13 @@
 ---
 author: "Daniel Blackbeard"
 date: '2026-10-11T19:00:00+02:00'
-draft: true
+draft: false
 title: 'The DDR Bug That Turned Out to Live in a USB Cable'
+description: "Hunting Zynq DDR corruption: a 400MHz retune, a PHY eye scan, a stock PlutoSDR crash too, and a faulty JTAG USB cable that turned out to be the cause."
+cover:
+  image: "images/faulty_cable.jpg"
+  alt: "HamGeek Zynq-7020 SDR board with a faulty USB cable"
+  relative: false
 tags:
 - hdl
 - log
@@ -10,7 +15,7 @@ tags:
 
 ## A second multi-day mystery, structurally familiar
 
-Right on the heels of the jitter arc, a second hardware mystery opened up — structurally similar in shape, a bug chased for days through firmware and configuration that turned out to live entirely outside the code, but this time the instrument that finally cracked it wasn't a statistical model. It was a human ear.
+Right on the heels of [the jitter arc]({{< ref "blog/20261004_clock_jitter_or_was_it.md" >}}), a second hardware mystery opened up — structurally similar in shape, a bug chased for days through firmware and configuration that turned out to live entirely outside the code, but this time the instrument that finally cracked it wasn't a statistical model. It was a human ear.
 
 ## Day five, and a fix already decided on
 
@@ -60,4 +65,4 @@ The session closed on genuine cautious optimism rather than a declared victory:
 
 I'm resisting the temptation to write this as a clean "and then it was fixed" ending, because that's not how it actually closed — my own framing at the time was explicitly conditional, and that's more representative of real hardware debugging than a tidy bow. It's also worth being upfront that solving this meant walking back several days of DDR configuration changes — frequency, delay correction — that addressed a problem which, in the end, wasn't really there. A real, slightly deflating, entirely typical cost of chasing a bug down the wrong layer for a while before finding the right one.
 
-Two mysteries, two different senses doing the actual diagnosing — a jitter-budget calculation from one, an audible click from the other. What I didn't know yet is that they weren't actually two separate bugs at all. That's next.
+Two mysteries, two different senses doing the actual diagnosing — a [jitter-budget calculation]({{< ref "blog/20261004_clock_jitter_or_was_it.md" >}}) from one, an audible click from the other. What I didn't know yet is that they weren't actually two separate bugs at all. That's next.
